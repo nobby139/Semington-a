@@ -220,17 +220,17 @@
 
     <!-- Tables Grid -->
     <div class="teams-grid">
-      
+      1
       <!-- HOME TEAM TABLE -->
       <div class="team-column">
         <table class="skittles-table" id="home-table">
           <thead>
             <tr>
-              <th colspan="9" class="team-header" id="home-header-display">HOME TEAM</th>
+              <th colspan="8" class="team-header" id="home-header-display">HOME TEAM</th>
             </tr>
             <tr>
               <th>NAME</th>
-              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
               <th>TOTAL</th>
             </tr>
           </thead>
@@ -241,7 +241,7 @@
                 document.write(`
                   <tr class="player-row">
                     <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
-                    ${[1,2,3,4,5,6].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
+                    ${[1,2,3,4,5].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
                     <td class="total-cell player-total">0</td>
                   </tr>
                 `);
@@ -256,7 +256,6 @@
               <td id="home-leg-3">0</td>
               <td id="home-leg-4">0</td>
               <td id="home-leg-5">0</td>
-              <td id="home-leg-6">0</td>
               <td id="home-total-sum">0</td>
             </tr>
           </tfoot>
@@ -268,11 +267,11 @@
         <table class="skittles-table" id="away-table">
           <thead>
             <tr>
-              <th colspan="9" class="team-header" id="away-header-display">VISITORS</th>
+              <th colspan="8" class="team-header" id="away-header-display">VISITORS</th>
             </tr>
             <tr>
               <th>NAME</th>
-              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
               <th>TOTAL</th>
             </tr>
           </thead>
@@ -283,7 +282,7 @@
                 document.write(`
                   <tr class="player-row">
                     <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
-                    ${[1,2,3,4,5,6].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
+                    ${[1,2,3,4,5].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
                     <td class="total-cell player-total">0</td>
                   </tr>
                 `);
@@ -298,15 +297,11 @@
               <td id="away-leg-3">0</td>
               <td id="away-leg-4">0</td>
               <td id="away-leg-5">0</td>
-              <td id="away-leg-6">0</td>
               <td id="away-total-sum">0</td>
             </tr>
           </tfoot>
         </table>
       </div>
-
-    </div>
-  </div>
 
   <!-- Auto-calculation & Dropdown Update Logic -->
   <script>
