@@ -309,45 +309,81 @@
       const homeSelect = document.getElementById('home-team-select');
       const awaySelect = document.getElementById('away-team-select');
       
-      document.getElementById('home-header-display').innerText = homeSelect.value.toUpperCase();
-      document.getElementById('away-header-display').innerText = awaySelect.value.toUpperCase();
+      if (homeSelect && awaySelect) {
+        document.getElementById('home-header-display').innerText = homeSelect.value.toUpperCase();
+        document.getElementById('away-header-display').innerText = awaySelect.value.toUpperCase();
+      }
     }
-
-    document.getElementById('home-team-select').addEventListener('change', updateTeamHeaders);
-    document.getElementById('away-team-select').addEventListener('change', updateTeamHeaders);
-
+  
+    const homeSelect = document.getElementById('home-team-select');
+    const awaySelect = document.getElementById('away-team-select');
+    if (homeSelect) homeSelect.addEventListener('change', updateTeamHeaders);
+    if (awaySelect) awaySelect.addEventListener('change', updateTeamHeaders);
+  
     function calculateScores() {
-      ['home', 'away'].forEach(team => {
-        let table = document.getElementById(`${team}-table`);
-        let rows = table.querySelectorAll('.player-row');
-        let legTotals = [0, 0, 0, 0, 0, 0];
-        let grandTotal = 0;
-
-        rows.forEach(row => {
-          let playerTotal = 0;
-          for (let leg = 1; leg <= 6; leg++) {
-            let input = row.querySelector(`.leg-${leg}`);
-            let val = parseInt(input.value) || 0;
-            playerTotal += val;
-            legTotals[leg - 1] += val;
-          }
-          row.querySelector('.player-total').innerText = playerTotal;
-          grandTotal += playerTotal;
-        });
-
-        // Update Leg Totals
-        for (let leg = 1; leg <= 6; leg++) {
-          document.getElementById(`${team}-leg-${leg}`).innerText = legTotals[leg - 1];
+      let homeLegTotals = [0, 0, 0, 0, 0];
+      let awayLegTotals = [0, 0, 0, 0, 0];
+      let homeGrandTotal = 0;
+      let awayGrandTotal = 0;
+  
+      // Home Team Calculations
+      let homeRows = document.querySelectorAll('#home-table .player-row');
+      homeRows.forEach(row => {
+        let playerTotal = 0;
+        for (let leg = 1; leg <= 5; leg++) {
+          let input = row.querySelector(`.leg-${leg}`);
+          let val = parseInt(input.value) || 0;
+          playerTotal += val;
+          homeLegTotals[leg - 1] += val;
         }
-
-        // Update Team Grand Totals
-        document.getElementById(`${team}-total-sum`).innerText = grandTotal;
-        document.getElementById(`${team}-grand-total`).innerText = grandTotal;
+        row.querySelector('.player-total').innerText = playerTotal;
+        homeGrandTotal += playerTotal;
       });
+  
+      // Away Team Calculations
+      let awayRows = document.querySelectorAll('#away-table .player-row');
+      awayRows.forEach(row => {
+        let playerTotal = 0;
+        for (let leg = 1; leg <= 5; leg++) {
+          let input = row.querySelector(`.leg-${leg}`);
+          let val = parseInt(input.value) || 0;
+          playerTotal += val;
+          awayLegTotals[leg - 1] += val;
+        }
+        row.querySelector('.player-total').innerText = playerTotal;
+        awayGrandTotal += playerTotal;
+      });
+  
+      // Update Leg Footers (Legs 1 to 5)
+      for (let leg = 1; leg <= 5; leg++) {
+        document.getElementById(`home-leg-${leg}`).innerText = homeLegTotals[leg - 1];
+        document.getElementById(`away-leg-${leg}`).innerText = awayLegTotals[leg - 1];
+      }
+  
+      // Update Overall Pin Sums
+      document.getElementById('home-total-sum').innerText = homeGrandTotal;
+      document.getElementById('away-total-sum').innerText = awayGrandTotal;
+  
+      // Calculate Legs Won for Top Boxes
+      let homeLegsWon = 0;
+      let awayLegsWon = 0;
+  
+      for (let leg = 0; leg < 5; leg++) {
+        let h = homeLegTotals[leg];
+        let a = awayLegTotals[leg];
+        if (h > 0 || a > 0) {
+          if (h > a) homeLegsWon += 1;
+          else if (a > h) awayLegsWon += 1;
+        }
+      }
+  
+      document.getElementById('home-grand-total').innerText = homeLegsWon;
+      document.getElementById('away-grand-total').innerText = awayLegsWon;
     }
-
-    // Initialize headers on load
+  
+    // Initialize on load
     updateTeamHeaders();
+    calculateScores();
   </script>
 
 </body>
