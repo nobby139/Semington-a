@@ -224,7 +224,6 @@
         <div class="control-row">
           <select class="team-select" id="home-team-select">
             <option value="STAVERTON A">STAVERTON A</option>
-            <!-- Additional teams populated via script -->
           </select>
         </div>
       </div>
@@ -234,9 +233,9 @@
         <div class="meta-row">
           <label for="division-select"><strong>Division</strong></label>
           <select class="meta-select" id="division-select" onchange="updateDivisionTeams()">
-            <option value="PREMIER" selected>PREMIER</option>
-            <option value="DIV1">DIVISION 1</option>
-            <option value="CUP">CUP MATCH</option>
+            <option value="premier" selected>PREMIER</option>
+            <option value="div1">DIVISION 1</option>
+            <option value="cup">CUP MATCH</option>
           </select>
         </div>
   
@@ -260,7 +259,6 @@
         <div class="control-row">
           <select class="team-select" id="away-team-select">
             <option value="SEMINGTON A">SEMINGTON A</option>
-            <!-- Additional teams populated via script -->
           </select>
         </div>
         <div class="control-row">
@@ -361,194 +359,155 @@
   
   </div>
 
-</body>
-</html>
-
-<!-- AWAY TEAM TABLE -->
-<div class="team-column">
-  <table class="skittles-table" id="away-table">
-    <thead>
-      <tr>
-        <th colspan="8" class="team-header" id="away-header-display">VISITORS</th>
-      </tr>
-      <tr>
-        <th>NAME</th>
-        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-        <th>TOTAL</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 10 Player Rows -->
-      <script>
-        for(let i=1; i<=10; i++){
-          document.write(`
-            <tr class="player-row">
-              <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
-              ${[1,2,3,4,5].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
-              <td class="total-cell player-total">0</td>
-            </tr>
-          `);
-        }
-      </script>
-    </tbody>
-    <tfoot>
-      <tr class="totals-row">
-        <td>TOTALS</td>
-        <td id="away-leg-1">0</td>
-        <td id="away-leg-2">0</td>
-        <td id="away-leg-3">0</td>
-        <td id="away-leg-4">0</td>
-        <td id="away-leg-5">0</td>
-        <td id="away-total-sum">0</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-
   <!-- Auto-calculation & Dropdown Update Logic -->
   <script>
     const premierTeams = [
-    "1. Staverton A",
-    "2. Seend A",
-    "3. Seend B",
-    "4. MUDS",
-    "5. Comrades",
-    "6. Semington A",
-    "7. Semington B",
-    "8. Motley Crew",
-    "9. Drifters",
-    "10. GBU",
-    "11. Melksham Casuals",
-    "12. Spencers B",
-    "13. Avon A"
-  ];
+      "Staverton A",
+      "Seend A",
+      "Seend B",
+      "MUDS",
+      "Comrades",
+      "Semington A",
+      "Semington B",
+      "Motley Crew",
+      "Drifters",
+      "GBU",
+      "Melksham Casuals",
+      "Spencers B",
+      "Avon A"
+    ];
 
-  const div1Teams = [
-    "1. Staverton B",
-    "2. Steeple Ashton",
-    "3. Seend B",
-    "4. Avon D",
-    "5. The Bees",
-    "6. Cons B",
-    "7. Legion E",
-    "8. Forest Rangers",
-    "9. Melksham Rovers",
-    "10. Saracens",
-    "11. Cons C",
-    "13. A Cons",
-    "14. The Pilot"
-  ];
+    const div1Teams = [
+      "Staverton B",
+      "Steeple Ashton",
+      "Seend B",
+      "Avon D",
+      "The Bees",
+      "Cons B",
+      "Legion E",
+      "Forest Rangers",
+      "Melksham Rovers",
+      "Saracens",
+      "Cons C",
+      "A Cons",
+      "The Pilot"
+    ];
 
-  function updateDivisionTeams() {
-    const divSelect = document.getElementById('division-select');
+    function updateDivisionTeams() {
+      const divSelect = document.getElementById('division-select');
+      const homeSelect = document.getElementById('home-team-select');
+      const awaySelect = document.getElementById('away-team-select');
+      
+      if (!divSelect || !homeSelect || !awaySelect) return;
+
+      let selectedList = premierTeams;
+      if (divSelect.value === 'div1') {
+        selectedList = div1Teams;
+      } else if (divSelect.value === 'cup') {
+        selectedList = [...new Set([...premierTeams, ...div1Teams])];
+      }
+
+      homeSelect.innerHTML = '';
+      awaySelect.innerHTML = '';
+
+      selectedList.forEach((team, index) => {
+        let opt1 = document.createElement('option');
+        opt1.value = team;
+        opt1.innerText = team;
+        if (index === 0) opt1.selected = true;
+        homeSelect.appendChild(opt1);
+
+        let opt2 = document.createElement('option');
+        opt2.value = team;
+        opt2.innerText = team;
+        if (index === 1) opt2.selected = true;
+        awaySelect.appendChild(opt2);
+      });
+
+      updateTeamHeaders();
+    }
+
+    function updateTeamHeaders() {
+      const homeSelect = document.getElementById('home-team-select');
+      const awaySelect = document.getElementById('away-team-select');
+      
+      if (homeSelect && awaySelect && homeSelect.value && awaySelect.value) {
+        document.getElementById('home-header-display').innerText = homeSelect.value.toUpperCase();
+        document.getElementById('away-header-display').innerText = awaySelect.value.toUpperCase();
+      }
+    }
+
+    // Attach event listeners for dropdown changes
     const homeSelect = document.getElementById('home-team-select');
     const awaySelect = document.getElementById('away-team-select');
-    
-    if (!divSelect || !homeSelect || !awaySelect) return;
+    if (homeSelect) homeSelect.addEventListener('change', updateTeamHeaders);
+    if (awaySelect) awaySelect.addEventListener('change', updateTeamHeaders);
 
-    const selectedList = (divSelect.value === 'premier') ? premierTeams : div1Teams;
+    function calculateScores() {
+      let homeLegTotals = [0, 0, 0, 0, 0];
+      let awayLegTotals = [0, 0, 0, 0, 0];
+      let homeGrandTotal = 0;
+      let awayGrandTotal = 0;
 
-    homeSelect.innerHTML = '';
-    awaySelect.innerHTML = '';
+      // Home Team Calculations
+      let homeRows = document.querySelectorAll('#home-table .player-row');
+      homeRows.forEach(row => {
+        let playerTotal = 0;
+        for (let leg = 1; leg <= 5; leg++) {
+          let input = row.querySelector(`.leg-${leg}`);
+          let val = parseInt(input.value) || 0;
+          playerTotal += val;
+          homeLegTotals[leg - 1] += val;
+        }
+        row.querySelector('.player-total').innerText = playerTotal;
+        homeGrandTotal += playerTotal;
+      });
 
-    selectedList.forEach((team, index) => {
-      let opt1 = document.createElement('option');
-      opt1.value = team;
-      opt1.innerText = team;
-      if (index === 0) opt1.selected = true;
-      homeSelect.appendChild(opt1);
+      // Away Team Calculations
+      let awayRows = document.querySelectorAll('#away-table .player-row');
+      awayRows.forEach(row => {
+        let playerTotal = 0;
+        for (let leg = 1; leg <= 5; leg++) {
+          let input = row.querySelector(`.leg-${leg}`);
+          let val = parseInt(input.value) || 0;
+          playerTotal += val;
+          awayLegTotals[leg - 1] += val;
+        }
+        row.querySelector('.player-total').innerText = playerTotal;
+        awayGrandTotal += playerTotal;
+      });
 
-      let opt2 = document.createElement('option');
-      opt2.value = team;
-      opt2.innerText = team;
-      if (index === 1) opt2.selected = true;
-      awaySelect.appendChild(opt2);
-    });
-
-    updateTeamHeaders();
-  }
-
-  function updateTeamHeaders() {
-    const homeSelect = document.getElementById('home-team-select');
-    const awaySelect = document.getElementById('away-team-select');
-    
-    if (homeSelect && awaySelect && homeSelect.value && awaySelect.value) {
-      document.getElementById('home-header-display').innerText = homeSelect.value.toUpperCase();
-      document.getElementById('away-header-display').innerText = awaySelect.value.toUpperCase();
-    }
-  }
-
-  // Attach event listeners for dropdown changes
-  const homeSelect = document.getElementById('home-team-select');
-  const awaySelect = document.getElementById('away-team-select');
-  if (homeSelect) homeSelect.addEventListener('change', updateTeamHeaders);
-  if (awaySelect) awaySelect.addEventListener('change', updateTeamHeaders);
-
-  function calculateScores() {
-    let homeLegTotals = [0, 0, 0, 0, 0];
-    let awayLegTotals = [0, 0, 0, 0, 0];
-    let homeGrandTotal = 0;
-    let awayGrandTotal = 0;
-
-    // Home Team Calculations
-    let homeRows = document.querySelectorAll('#home-table .player-row');
-    homeRows.forEach(row => {
-      let playerTotal = 0;
+      // Update Leg Footers (Legs 1 to 5)
       for (let leg = 1; leg <= 5; leg++) {
-        let input = row.querySelector(`.leg-${leg}`);
-        let val = parseInt(input.value) || 0;
-        playerTotal += val;
-        homeLegTotals[leg - 1] += val;
+        document.getElementById(`home-leg-${leg}`).innerText = homeLegTotals[leg - 1];
+        document.getElementById(`away-leg-${leg}`).innerText = awayLegTotals[leg - 1];
       }
-      row.querySelector('.player-total').innerText = playerTotal;
-      homeGrandTotal += playerTotal;
-    });
 
-    // Away Team Calculations
-    let awayRows = document.querySelectorAll('#away-table .player-row');
-    awayRows.forEach(row => {
-      let playerTotal = 0;
-      for (let leg = 1; leg <= 5; leg++) {
-        let input = row.querySelector(`.leg-${leg}`);
-        let val = parseInt(input.value) || 0;
-        playerTotal += val;
-        awayLegTotals[leg - 1] += val;
-      }
-      row.querySelector('.player-total').innerText = playerTotal;
-      awayGrandTotal += playerTotal;
-    });
+      // Update Overall Pin Sums
+      document.getElementById('home-total-sum').innerText = homeGrandTotal;
+      document.getElementById('away-total-sum').innerText = awayGrandTotal;
 
-    // Update Leg Footers (Legs 1 to 5)
-    for (let leg = 1; leg <= 5; leg++) {
-      document.getElementById(`home-leg-${leg}`).innerText = homeLegTotals[leg - 1];
-      document.getElementById(`away-leg-${leg}`).innerText = awayLegTotals[leg - 1];
-    }
+      // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
+      let homeBox = document.getElementById('home-grand-total');
+      let awayBox = document.getElementById('away-grand-total');
 
-    // Update Overall Pin Sums
-    document.getElementById('home-total-sum').innerText = homeGrandTotal;
-    document.getElementById('away-total-sum').innerText = awayGrandTotal;
-
-    // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
-    let homeBox = document.getElementById('home-grand-total');
-    let awayBox = document.getElementById('away-grand-total');
-
-    if (homeBox && awayBox) {
-      if (homeGrandTotal > awayGrandTotal) {
-        homeBox.innerText = (homeGrandTotal - awayGrandTotal);
-        awayBox.innerText = "0";
-      } else if (awayGrandTotal > homeGrandTotal) {
-        homeBox.innerText = "0";
-        awayBox.innerText = (awayGrandTotal - homeGrandTotal);
-      } else {
-        homeBox.innerText = "0";
-        awayBox.innerText = "0";
+      if (homeBox && awayBox) {
+        if (homeGrandTotal > awayGrandTotal) {
+          homeBox.innerText = (homeGrandTotal - awayGrandTotal);
+          awayBox.innerText = "0";
+        } else if (awayGrandTotal > homeGrandTotal) {
+          homeBox.innerText = "0";
+          awayBox.innerText = (awayGrandTotal - homeGrandTotal);
+        } else {
+          homeBox.innerText = "0";
+          awayBox.innerText = "0";
+        }
       }
     }
-  }
 
-  // Initialize on load
-  updateDivisionTeams();
-  calculateScores();
+    // Initialize on load
+    updateDivisionTeams();
+    calculateScores();
   </script>
 
 </body>
