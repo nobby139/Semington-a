@@ -543,7 +543,7 @@
         let homeGrandTotal = 0;
         let awayGrandTotal = 0;
     
-        // 1. Home Team Player & Leg Calculations
+        // 1. Home Team Calculations
         let homeRows = document.querySelectorAll('#home-table .player-row');
         homeRows.forEach(row => {
           let playerTotal = 0;
@@ -551,7 +551,6 @@
             let input = row.querySelector(`.leg-${leg}`);
             let val = parseInt(input.value) || 0;
     
-            // Apply spare styling if score is 10 or greater
             if (val >= 10) {
               input.classList.add('spare-box');
             } else {
@@ -566,7 +565,7 @@
           homeGrandTotal += playerTotal;
         });
     
-        // 2. Away Team Player & Leg Calculations
+        // 2. Away Team Calculations
         let awayRows = document.querySelectorAll('#away-table .player-row');
         awayRows.forEach(row => {
           let playerTotal = 0;
@@ -574,7 +573,6 @@
             let input = row.querySelector(`.leg-${leg}`);
             let val = parseInt(input.value) || 0;
     
-            // Apply spare styling if score is 10 or greater
             if (val >= 10) {
               input.classList.add('spare-box');
             } else {
@@ -597,9 +595,9 @@
           if (aLegElem) aLegElem.innerText = awayLegTotals[leg - 1];
         }
     
-        // 4. Update Bottom Row: LEGS WON (Notation: I = Win, 1/2 = Draw, - = Loss)
+        // 4. Update Bottom Row: LEGS WON (I = Win, 1/2 = Draw, - = Loss/Unplayed)
         const divisionElem = document.getElementById('division-select');
-        const divisionVal = divisionElem ? divisionElem.value : 'premier';
+        const divisionVal = divisionElem ? divisionElem.value.toLowerCase() : 'premier';
         const isCup = (divisionVal === 'cup');
     
         let homeLegsWonSum = 0;
@@ -613,7 +611,12 @@
           let aResElem = document.getElementById(`away-leg-res-${leg}`);
     
           if (hResElem && aResElem) {
-            if (isCup || (hScore === 0 && aScore === 0)) {
+            // Unplayed leg check (both scores zero)
+            if (hScore === 0 && aScore === 0) {
+              hResElem.innerText = "-";
+              aResElem.innerText = "-";
+            } else if (isCup) {
+              // Cup matches do not award leg win points
               hResElem.innerText = "-";
               aResElem.innerText = "-";
             } else if (hScore > aScore) {
@@ -633,7 +636,7 @@
           }
         }
     
-        // 5. Calculate Bonus Points for Overall Pin Total Winner (+2 points)
+        // 5. Calculate Bonus Points for Overall Pin Total (+2 points)
         let homeBonus = 0;
         let awayBonus = 0;
         if (homeGrandTotal > 0 || awayGrandTotal > 0) {
@@ -650,19 +653,19 @@
         let homeTotalPoints = isCup ? 0 : (homeLegsWonSum + homeBonus);
         let awayTotalPoints = isCup ? 0 : (awayLegsWonSum + awayBonus);
     
-        // Update Bottom Right Cell (Legs Won count & Match Points)
+        // Update Bottom Right Box (Total Legs Won & Match Points)
         let hLegsTotalElem = document.getElementById('home-legs-won-total');
         let aLegsTotalElem = document.getElementById('away-legs-won-total');
         if (hLegsTotalElem) hLegsTotalElem.innerText = isCup ? "-" : `${homeLegsWonSum} (${homeTotalPoints} pts)`;
         if (aLegsTotalElem) aLegsTotalElem.innerText = isCup ? "-" : `${awayLegsWonSum} (${awayTotalPoints} pts)`;
     
-        // Update Overall Pin Sums (Grand Total Pinfall on Row 1 far right)
+        // Update Row 1 Far Right Cell (Grand Total Pinfall)
         let hTotalSumElem = document.getElementById('home-total-sum');
         let aTotalSumElem = document.getElementById('away-total-sum');
         if (hTotalSumElem) hTotalSumElem.innerText = homeGrandTotal;
         if (aTotalSumElem) aTotalSumElem.innerText = awayGrandTotal;
     
-        // 6. TOP BOXES: OVERALL PIN DIFFERENCE (UP)
+        // 6. Top Box Difference (UP)
         let homeBox = document.getElementById('home-grand-total');
         let awayBox = document.getElementById('away-grand-total');
     
