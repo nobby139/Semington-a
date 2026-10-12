@@ -4,10 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scoreboard - Semington A Skittles Team</title>
-
-</head>
-<body>
-<style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
@@ -72,27 +69,44 @@
       letter-spacing: 1px;
     }
 
-    /* Combined Team Title Box */
-    .team-title-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      flex: 1;
-      text-align: center;
-    }
-
-    /* Stacked container for Division and Venue in the middle */
-    .central-controls {
+    /* Team Control Box */
+    .team-control-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex: 1;
-      max-width: 250px;
     }
 
-    .team-select {
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-up-label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Stacked container for Division and Venue in the middle */
+    .central-meta-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      max-width: 280px;
+      align-items: center;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .team-select, .meta-select {
       font-size: 1.05rem;
       font-weight: bold;
       padding: 6px 10px;
@@ -174,6 +188,9 @@
       font-size: 1.05rem;
     }
   </style>
+</head>
+<body>
+
   <header>
     <h1>Semington A Skittles Club</h1>
   </header>
@@ -259,12 +276,13 @@
   
     <!-- Tables Grid -->
     <div class="teams-grid">
+      
       <!-- HOME TABLE -->
       <div class="team-column">
         <table class="skittles-table" id="home-table">
           <thead>
             <tr>
-              <th colspan="8" class="team-header" id="home-header-display">STAVERTON A</th>
+              <th colspan="7" class="team-header" id="home-header-display">STAVERTON A</th>
             </tr>
             <tr>
               <th>NAME</th>
@@ -273,33 +291,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Player Rows (Player 1 to 10) -->
-          </tbody>
-        </table>
-      </div>
-  
-      <!-- AWAY TABLE -->
-      <div class="team-column">
-        <table class="skittles-table" id="away-table">
-          <thead>
-            <tr>
-              <th colspan="8" class="team-header" id="away-header-display">SEEND A</th>
-            </tr>
-            <tr>
-              <th>NAME</th>
-              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-              <th>TOTAL</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Player Rows (Player 1 to 10) -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  
-  </div>
-            <!-- 10 Player Rows -->
             <script>
               for(let i=1; i<=10; i++){
                 document.write(`
@@ -325,13 +316,13 @@
           </tfoot>
         </table>
       </div>
-
-      <!-- AWAY TEAM TABLE -->
+  
+      <!-- AWAY TABLE -->
       <div class="team-column">
         <table class="skittles-table" id="away-table">
           <thead>
             <tr>
-              <th colspan="8" class="team-header" id="away-header-display">VISITORS</th>
+              <th colspan="7" class="team-header" id="away-header-display">VISITORS</th>
             </tr>
             <tr>
               <th>NAME</th>
@@ -340,7 +331,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- 10 Player Rows -->
             <script>
               for(let i=1; i<=10; i++){
                 document.write(`
@@ -366,6 +356,54 @@
           </tfoot>
         </table>
       </div>
+
+    </div>
+  
+  </div>
+
+</body>
+</html>
+
+<!-- AWAY TEAM TABLE -->
+<div class="team-column">
+  <table class="skittles-table" id="away-table">
+    <thead>
+      <tr>
+        <th colspan="8" class="team-header" id="away-header-display">VISITORS</th>
+      </tr>
+      <tr>
+        <th>NAME</th>
+        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        <th>TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 10 Player Rows -->
+      <script>
+        for(let i=1; i<=10; i++){
+          document.write(`
+            <tr class="player-row">
+              <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
+              ${[1,2,3,4,5].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
+              <td class="total-cell player-total">0</td>
+            </tr>
+          `);
+        }
+      </script>
+    </tbody>
+    <tfoot>
+      <tr class="totals-row">
+        <td>TOTALS</td>
+        <td id="away-leg-1">0</td>
+        <td id="away-leg-2">0</td>
+        <td id="away-leg-3">0</td>
+        <td id="away-leg-4">0</td>
+        <td id="away-leg-5">0</td>
+        <td id="away-total-sum">0</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
   <!-- Auto-calculation & Dropdown Update Logic -->
   <script>
