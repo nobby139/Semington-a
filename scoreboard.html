@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scoreboard - Semington A Skittles Team</title>
-  <style>
+
+</head>
+<body>
+<style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
@@ -50,7 +53,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-   /* Venue Title Header - Side-by-side layout */
+    /* Venue Title Header - Side-by-side layout */
     .venue-header {
       display: flex;
       flex-direction: row;
@@ -62,6 +65,23 @@
       gap: 15px;
     }
 
+    .venue-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Combined Team Title Box */
+    .team-title-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex: 1;
+      text-align: center;
+    }
+
     /* Stacked container for Division and Venue in the middle */
     .central-controls {
       display: flex;
@@ -70,24 +90,6 @@
       gap: 8px;
       flex: 1;
       max-width: 250px;
-    }
-
-    .team-title-box {
-      flex: 1;
-      text-align: center;
-    } 
-
-    .venue-header h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .team-title-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .team-select {
@@ -130,6 +132,7 @@
     .skittles-table th, .skittles-table td {
       border: 1px solid #333;
       padding: 6px;
+      vertical-align: middle;
     }
 
     .skittles-table th {
@@ -171,9 +174,6 @@
       font-size: 1.05rem;
     }
   </style>
-</head>
-<body>
-
   <header>
     <h1>Semington A Skittles Club</h1>
   </header>
@@ -191,72 +191,80 @@
 
   <!-- Traditional Skittles Scoreboard -->
   <div class="scoreboard-board">
-    
-    <!-- Top Header Bar with Division, Teams & Venue Dropdowns (Expanded Whitespace) -->
-    <div class="venue-header" style="display: flex; flex-direction: column; align-items: center; gap: 15px; padding: 25px 20px; min-height: 140px; background-color: #f8f9fa; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 20px;">
-
-      <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 15px;">
-        
-        <!-- HOME TEAM SELECT -->
-        <div class="team-title-box" style="flex: 1; min-width: 200px; text-align: center;">
-          <label><strong>HOME:</strong></label>
-          <select class="team-select" id="home-team-select">
-            <!-- Populated dynamically via script -->
-          </select>
+  
+    <!-- Header Section Matching Spreadsheet Grid -->
+    <div class="venue-header">
+  
+      <!-- LEFT: HOME TEAM CONTROL -->
+      <div class="team-control-box">
+        <div class="control-row">
+          <span class="score-up-label">UP</span>
           <span class="overall-score" id="home-grand-total">0</span>
         </div>
-
-        <!-- CENTER DROPDOWNS (Division & Venue Stacked) -->
-        <div style="display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 220px; align-items: center;">
-          
-          <!-- Division Selector -->
-          <div class="format-select-box" style="width: 100%; text-align: center;">
-            <label><strong>DIVISION:</strong></label>
-            <select class="team-select" id="division-select" onchange="updateDivisionTeams()">
-              <option value="premier" selected>Premier Division</option>
-              <option value="div1">Division 1</option>
-              <option value="cup">Cup Match</option>
-            </select>
-          </div>
-          
-          <!-- Venue Dropdown -->
-          <div class="venue-box" style="width: 100%; text-align: center;">
-            <label><strong>VENUE:</strong></label>
-            <select class="team-select" id="venue-select">
-              <option value="Liberal Club" selected>Liberal Club</option>
-              <option value="Semington Village Hall">Semington Village Hall</option>
-              <option value="Staverton Club">Staverton Club</option>
-              <option value="Seend Community Centre">Seend Community Centre</option>
-              <option value="Spencers Club">Spencers Club</option>
-              <option value="Conservative Club">Conservative Club</option>
-              <option value="The Pilot Inn">The Pilot Inn</option>
-              <option value="Forest Community Centre">Forest Community Centre</option>
-            </select>
-          </div>
-
+        <div class="control-row">
+          <label for="home-team-select"><strong>HOME TEAM</strong></label>
         </div>
-
-        <!-- VISITORS TEAM SELECT -->
-        <div class="team-title-box" style="flex: 1; min-width: 200px; text-align: center;">
-          <label><strong>VISITORS:</strong></label>
-          <select class="team-select" id="away-team-select">
-            <!-- Populated dynamically via script -->
+        <div class="control-row">
+          <select class="team-select" id="home-team-select">
+            <option value="STAVERTON A">STAVERTON A</option>
+            <!-- Additional teams populated via script -->
           </select>
+        </div>
+      </div>
+  
+      <!-- CENTER: DIVISION & VENUE (STACKED VERTICALLY) -->
+      <div class="central-meta-box">
+        <div class="meta-row">
+          <label for="division-select"><strong>Division</strong></label>
+          <select class="meta-select" id="division-select" onchange="updateDivisionTeams()">
+            <option value="PREMIER" selected>PREMIER</option>
+            <option value="DIV1">DIVISION 1</option>
+            <option value="CUP">CUP MATCH</option>
+          </select>
+        </div>
+  
+        <div class="meta-row">
+          <label for="venue-select"><strong>Venue</strong></label>
+          <select class="meta-select" id="venue-select">
+            <option value="LIBERAL CLUB" selected>LIBERAL CLUB</option>
+            <option value="SEMINGTON VILLAGE HALL">SEMINGTON VILLAGE HALL</option>
+            <option value="STAVERTON CLUB">STAVERTON CLUB</option>
+            <option value="SEEND COMMUNITY CENTRE">SEEND COMMUNITY CENTRE</option>
+            <option value="SPENCERS CLUB">SPENCERS CLUB</option>
+            <option value="CONSERVATIVE CLUB">CONSERVATIVE CLUB</option>
+            <option value="THE PILOT INN">THE PILOT INN</option>
+            <option value="FOREST COMMUNITY CENTRE">FOREST COMMUNITY CENTRE</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- RIGHT: AWAY TEAM CONTROL -->
+      <div class="team-control-box">
+        <div class="control-row">
+          <select class="team-select" id="away-team-select">
+            <option value="SEMINGTON A">SEMINGTON A</option>
+            <!-- Additional teams populated via script -->
+          </select>
+        </div>
+        <div class="control-row">
+          <label for="away-team-select"><strong>AWAY TEAM</strong></label>
+        </div>
+        <div class="control-row">
+          <span class="score-up-label">UP</span>
           <span class="overall-score" id="away-grand-total">0</span>
         </div>
-
       </div>
+  
     </div>
-
+  
     <!-- Tables Grid -->
     <div class="teams-grid">
-      
-      <!-- HOME TEAM TABLE -->
+      <!-- HOME TABLE -->
       <div class="team-column">
         <table class="skittles-table" id="home-table">
           <thead>
             <tr>
-              <th colspan="8" class="team-header" id="home-header-display">HOME TEAM</th>
+              <th colspan="8" class="team-header" id="home-header-display">STAVERTON A</th>
             </tr>
             <tr>
               <th>NAME</th>
@@ -265,6 +273,32 @@
             </tr>
           </thead>
           <tbody>
+            <!-- Player Rows (Player 1 to 10) -->
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- AWAY TABLE -->
+      <div class="team-column">
+        <table class="skittles-table" id="away-table">
+          <thead>
+            <tr>
+              <th colspan="8" class="team-header" id="away-header-display">SEEND A</th>
+            </tr>
+            <tr>
+              <th>NAME</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+              <th>TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Player Rows (Player 1 to 10) -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  </div>
             <!-- 10 Player Rows -->
             <script>
               for(let i=1; i<=10; i++){
