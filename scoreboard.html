@@ -310,13 +310,13 @@
           </tbody>
           <tfoot>
             <tr class="leg-result-row">
-              <td>LEG WON</td>
+              <td>LEGS WON</td>
               <td id="home-leg-res-1">-</td>
               <td id="home-leg-res-2">-</td>
               <td id="home-leg-res-3">-</td>
               <td id="home-leg-res-4">-</td>
               <td id="home-leg-res-5">-</td>
-              <td>-</td>
+              <td id="home-legs-won-total">0</td>
             </tr>
             <tr class="totals-row">
               <td>TOTALS</td>
@@ -359,13 +359,13 @@
           </tbody>
           <tfoot>
             <tr class="leg-result-row">
-              <td>LEG WON</td>
+              <td>LEGS WON</td>
               <td id="away-leg-res-1">-</td>
               <td id="away-leg-res-2">-</td>
               <td id="away-leg-res-3">-</td>
               <td id="away-leg-res-4">-</td>
               <td id="away-leg-res-5">-</td>
-              <td>-</td>
+              <td id="away-legs-won-total">0</td>
             </tr>
             <tr class="totals-row">
               <td>TOTALS</td>
@@ -513,9 +513,12 @@
       document.getElementById('home-total-sum').innerText = homeGrandTotal;
       document.getElementById('away-total-sum').innerText = awayGrandTotal;
 
-      // --- LEG WINNER CALCULATIONS (Premier & Div 1 Only) ---
+      // --- LEG WINNER & TOTAL LEGS WON CALCULATIONS ---
       const divisionVal = document.getElementById('division-select').value;
       const isCup = (divisionVal === 'cup');
+
+      let homeLegsWonSum = 0;
+      let awayLegsWonSum = 0;
 
       for (let leg = 1; leg <= 5; leg++) {
         let hScore = homeLegTotals[leg - 1];
@@ -534,16 +537,23 @@
           } else if (hScore > aScore) {
             hResElem.innerText = "I";
             aResElem.innerText = "-";
+            homeLegsWonSum += 1;
           } else if (aScore > hScore) {
             hResElem.innerText = "-";
             aResElem.innerText = "I";
+            awayLegsWonSum += 1;
           } else {
-            // Equal scores result in a draw (1/2 for both)
             hResElem.innerText = "1/2";
             aResElem.innerText = "1/2";
+            homeLegsWonSum += 0.5;
+            awayLegsWonSum += 0.5;
           }
         }
       }
+
+      // Update Total Legs Won per team
+      document.getElementById('home-legs-won-total').innerText = isCup ? "-" : homeLegsWonSum;
+      document.getElementById('away-legs-won-total').innerText = isCup ? "-" : awayLegsWonSum;
 
       // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
       let homeBox = document.getElementById('home-grand-total');
