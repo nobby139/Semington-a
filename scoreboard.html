@@ -406,241 +406,241 @@
   <!-- Auto-calculation & Dropdown Update Logic -->
   <script>
     const premierTeams = [
-        "Staverton A",
-        "Seend A",
-        "Seend B",
-        "MUDS",
-        "Comrades",
-        "Semington A",
-        "Semington B",
-        "Motley Crew",
-        "Drifters",
-        "GBU",
-        "Melksham Casuals",
-        "Spencers B",
-        "Avon A"
-      ];
-    
-      const div1Teams = [
-        "Staverton B",
-        "Steeple Ashton",
-        "Seend B",
-        "Avon D",
-        "The Bees",
-        "Cons B",
-        "Legion E",
-        "Forest Rangers",
-        "Melksham Rovers",
-        "Saracens",
-        "Cons C",
-        "A Cons",
-        "The Pilot"
-      ];
-    
-      function updateDivisionTeams() {
-        const divSelect = document.getElementById('division-select');
-        const homeSelect = document.getElementById('home-team-select');
-        const awaySelect = document.getElementById('away-team-select');
+            "Staverton A",
+            "Seend A",
+            "Seend B",
+            "MUDS",
+            "Comrades",
+            "Semington A",
+            "Semington B",
+            "Motley Crew",
+            "Drifters",
+            "GBU",
+            "Melksham Casuals",
+            "Spencers B",
+            "Avon A"
+          ];
         
-        if (!divSelect || !homeSelect || !awaySelect) return;
-    
-        let selectedList = premierTeams;
-        if (divSelect.value === 'div1') {
-          selectedList = div1Teams;
-        } else if (divSelect.value === 'cup') {
-          selectedList = [...new Set([...premierTeams, ...div1Teams])];
-        }
-    
-        homeSelect.innerHTML = '';
-        awaySelect.innerHTML = '';
-    
-        selectedList.forEach((team, index) => {
-          let opt1 = document.createElement('option');
-          opt1.value = team;
-          opt1.innerText = team;
-          if (index === 0) opt1.selected = true;
-          homeSelect.appendChild(opt1);
-    
-          let opt2 = document.createElement('option');
-          opt2.value = team;
-          opt2.innerText = team;
-          if (index === 1) opt2.selected = true;
-          awaySelect.appendChild(opt2);
-        });
-    
-        updateTeamHeaders();
-        calculateScores();
-      }
-    
-      function updateTeamHeaders() {
-        const homeSelect = document.getElementById('home-team-select');
-        const awaySelect = document.getElementById('away-team-select');
+          const div1Teams = [
+            "Staverton B",
+            "Steeple Ashton",
+            "Seend B",
+            "Avon D",
+            "The Bees",
+            "Cons B",
+            "Legion E",
+            "Forest Rangers",
+            "Melksham Rovers",
+            "Saracens",
+            "Cons C",
+            "A Cons",
+            "The Pilot"
+          ];
         
-        if (homeSelect && awaySelect && homeSelect.value && awaySelect.value) {
-          const homeDisp = document.getElementById('home-header-display');
-          const awayDisp = document.getElementById('away-header-display');
-          if (homeDisp) homeDisp.innerText = homeSelect.value.toUpperCase();
-          if (awayDisp) awayDisp.innerText = awaySelect.value.toUpperCase();
-        }
-      }
-    
-      // Attach event listeners for dropdown changes
-      const homeSelect = document.getElementById('home-team-select');
-      const awaySelect = document.getElementById('away-team-select');
-      if (homeSelect) homeSelect.addEventListener('change', updateTeamHeaders);
-      if (awaySelect) awaySelect.addEventListener('change', updateTeamHeaders);
-    
-      function calculateScores() {
-        let homeLegTotals = [0, 0, 0, 0, 0];
-        let awayLegTotals = [0, 0, 0, 0, 0];
-        let homeGrandTotal = 0;
-        let awayGrandTotal = 0;
-    
-        // Home Team Calculations
-        let homeRows = document.querySelectorAll('#home-table .player-row');
-        homeRows.forEach(row => {
-          let playerTotal = 0;
-          for (let leg = 1; leg <= 5; leg++) {
-            let input = row.querySelector(`.leg-${leg}`);
-            let val = parseInt(input.value) || 0;
-    
-            // Apply spare styling if score is 10 or greater
-            if (val >= 10) {
-              input.classList.add('spare-box');
-            } else {
-              input.classList.remove('spare-box');
+          function updateDivisionTeams() {
+            const divSelect = document.getElementById('division-select');
+            const homeSelect = document.getElementById('home-team-select');
+            const awaySelect = document.getElementById('away-team-select');
+            
+            if (!divSelect || !homeSelect || !awaySelect) return;
+        
+            let selectedList = premierTeams;
+            if (divSelect.value === 'div1') {
+              selectedList = div1Teams;
+            } else if (divSelect.value === 'cup') {
+              selectedList = [...new Set([...premierTeams, ...div1Teams])];
             }
-    
-            playerTotal += val;
-            homeLegTotals[leg - 1] += val;
+        
+            homeSelect.innerHTML = '';
+            awaySelect.innerHTML = '';
+        
+            selectedList.forEach((team, index) => {
+              let opt1 = document.createElement('option');
+              opt1.value = team;
+              opt1.innerText = team;
+              if (index === 0) opt1.selected = true;
+              homeSelect.appendChild(opt1);
+        
+              let opt2 = document.createElement('option');
+              opt2.value = team;
+              opt2.innerText = team;
+              if (index === 1) opt2.selected = true;
+              awaySelect.appendChild(opt2);
+            });
+        
+            updateTeamHeaders();
+            calculateScores();
           }
-          let pTotalElem = row.querySelector('.player-total');
-          if (pTotalElem) pTotalElem.innerText = playerTotal;
-          homeGrandTotal += playerTotal;
-        });
-    
-        // Away Team Calculations
-        let awayRows = document.querySelectorAll('#away-table .player-row');
-        awayRows.forEach(row => {
-          let playerTotal = 0;
-          for (let leg = 1; leg <= 5; leg++) {
-            let input = row.querySelector(`.leg-${leg}`);
-            let val = parseInt(input.value) || 0;
-    
-            // Apply spare styling if score is 10 or greater
-            if (val >= 10) {
-              input.classList.add('spare-box');
-            } else {
-              input.classList.remove('spare-box');
+        
+          function updateTeamHeaders() {
+            const homeSelect = document.getElementById('home-team-select');
+            const awaySelect = document.getElementById('away-team-select');
+            
+            if (homeSelect && awaySelect && homeSelect.value && awaySelect.value) {
+              const homeDisp = document.getElementById('home-header-display');
+              const awayDisp = document.getElementById('away-header-display');
+              if (homeDisp) homeDisp.innerText = homeSelect.value.toUpperCase();
+              if (awayDisp) awayDisp.innerText = awaySelect.value.toUpperCase();
             }
-    
-            playerTotal += val;
-            awayLegTotals[leg - 1] += val;
           }
-          let pTotalElem = row.querySelector('.player-total');
-          if (pTotalElem) pTotalElem.innerText = playerTotal;
-          awayGrandTotal += playerTotal;
-        });
-    
-        // Update Leg Footers (Legs 1 to 5)
-        for (let leg = 1; leg <= 5; leg++) {
-          let hLegElem = document.getElementById(`home-leg-${leg}`);
-          let aLegElem = document.getElementById(`away-leg-${leg}`);
-          if (hLegElem) hLegElem.innerText = homeLegTotals[leg - 1];
-          if (aLegElem) aLegElem.innerText = awayLegTotals[leg - 1];
-        }
-    
-        // --- LEG WINNER, TOTAL LEGS WON & 2 BONUS POINTS CALCULATIONS ---
-        const divisionElem = document.getElementById('division-select');
-        const divisionVal = divisionElem ? divisionElem.value : 'premier';
-        const isCup = (divisionVal === 'cup');
-    
-        let homeLegsWonSum = 0;
-        let awayLegsWonSum = 0;
-    
-        for (let leg = 1; leg <= 5; leg++) {
-          let hScore = homeLegTotals[leg - 1];
-          let aScore = awayLegTotals[leg - 1];
-          
-          let hResElem = document.getElementById(`home-leg-res-${leg}`);
-          let aResElem = document.getElementById(`away-leg-res-${leg}`);
-    
-          if (hResElem && aResElem) {
-            if (isCup) {
-              hResElem.innerText = "-";
-              aResElem.innerText = "-";
-            } else {
-              if (hScore === 0 && aScore === 0) {
-                hResElem.innerText = "-";
-                aResElem.innerText = "-";
-              } else if (hScore > aScore) {
-                hResElem.innerText = "I";
-                aResElem.innerText = "-";
-                homeLegsWonSum += 1;
-              } else if (aScore > hScore) {
-                hResElem.innerText = "-";
-                aResElem.innerText = "I";
-                awayLegsWonSum += 1;
+        
+          // Attach event listeners for dropdown changes
+          const homeSelect = document.getElementById('home-team-select');
+          const awaySelect = document.getElementById('away-team-select');
+          if (homeSelect) homeSelect.addEventListener('change', updateTeamHeaders);
+          if (awaySelect) awaySelect.addEventListener('change', updateTeamHeaders);
+        
+          function calculateScores() {
+            let homeLegTotals = [0, 0, 0, 0, 0];
+            let awayLegTotals = [0, 0, 0, 0, 0];
+            let homeGrandTotal = 0;
+            let awayGrandTotal = 0;
+        
+            // Home Team Calculations
+            let homeRows = document.querySelectorAll('#home-table .player-row');
+            homeRows.forEach(row => {
+              let playerTotal = 0;
+              for (let leg = 1; leg <= 5; leg++) {
+                let input = row.querySelector(`.leg-${leg}`);
+                let val = parseInt(input.value) || 0;
+        
+                // Apply spare styling if score is 10 or greater
+                if (val >= 10) {
+                  input.classList.add('spare-box');
+                } else {
+                  input.classList.remove('spare-box');
+                }
+        
+                playerTotal += val;
+                homeLegTotals[leg - 1] += val;
+              }
+              let pTotalElem = row.querySelector('.player-total');
+              if (pTotalElem) pTotalElem.innerText = playerTotal;
+              homeGrandTotal += playerTotal;
+            });
+        
+            // Away Team Calculations
+            let awayRows = document.querySelectorAll('#away-table .player-row');
+            awayRows.forEach(row => {
+              let playerTotal = 0;
+              for (let leg = 1; leg <= 5; leg++) {
+                let input = row.querySelector(`.leg-${leg}`);
+                let val = parseInt(input.value) || 0;
+        
+                // Apply spare styling if score is 10 or greater
+                if (val >= 10) {
+                  input.classList.add('spare-box');
+                } else {
+                  input.classList.remove('spare-box');
+                }
+        
+                playerTotal += val;
+                awayLegTotals[leg - 1] += val;
+              }
+              let pTotalElem = row.querySelector('.player-total');
+              if (pTotalElem) pTotalElem.innerText = playerTotal;
+              awayGrandTotal += playerTotal;
+            });
+        
+            // Update Leg Footers (Legs 1 to 5) with pin sums
+            for (let leg = 1; leg <= 5; leg++) {
+              let hLegElem = document.getElementById(`home-leg-${leg}`);
+              let aLegElem = document.getElementById(`away-leg-${leg}`);
+              if (hLegElem) hLegElem.innerText = homeLegTotals[leg - 1];
+              if (aLegElem) aLegElem.innerText = awayLegTotals[leg - 1];
+            }
+        
+            // --- LEG RESULTS (I = Win, 1/2 = Draw, - = Loss) ---
+            const divisionElem = document.getElementById('division-select');
+            const divisionVal = divisionElem ? divisionElem.value : 'premier';
+            const isCup = (divisionVal === 'cup');
+        
+            let homeLegsWonSum = 0;
+            let awayLegsWonSum = 0;
+        
+            for (let leg = 1; leg <= 5; leg++) {
+              let hScore = homeLegTotals[leg - 1];
+              let aScore = awayLegTotals[leg - 1];
+              
+              let hResElem = document.getElementById(`home-leg-res-${leg}`);
+              let aResElem = document.getElementById(`away-leg-res-${leg}`);
+        
+              if (hResElem && aResElem) {
+                if (isCup) {
+                  hResElem.innerText = "-";
+                  aResElem.innerText = "-";
+                } else {
+                  if (hScore === 0 && aScore === 0) {
+                    hResElem.innerText = "-";
+                    aResElem.innerText = "-";
+                  } else if (hScore > aScore) {
+                    hResElem.innerText = "I";
+                    aResElem.innerText = "-";
+                    homeLegsWonSum += 1;
+                  } else if (aScore > hScore) {
+                    hResElem.innerText = "-";
+                    aResElem.innerText = "I";
+                    awayLegsWonSum += 1;
+                  } else {
+                    hResElem.innerText = "1/2";
+                    aResElem.innerText = "1/2";
+                    homeLegsWonSum += 0.5;
+                    awayLegsWonSum += 0.5;
+                  }
+                }
+              }
+            }
+        
+            // Calculate Bonus Points for Overall Pin Total Winner (+2 points)
+            let homeBonus = 0;
+            let awayBonus = 0;
+            if (homeGrandTotal > 0 || awayGrandTotal > 0) {
+              if (homeGrandTotal > awayGrandTotal) {
+                homeBonus = 2;
+              } else if (awayGrandTotal > homeGrandTotal) {
+                awayBonus = 2;
               } else {
-                hResElem.innerText = "1/2";
-                aResElem.innerText = "1/2";
-                homeLegsWonSum += 0.5;
-                awayLegsWonSum += 0.5;
+                homeBonus = 1;
+                awayBonus = 1;
+              }
+            }
+        
+            let homeTotalPoints = isCup ? 0 : (homeLegsWonSum + homeBonus);
+            let awayTotalPoints = isCup ? 0 : (awayLegsWonSum + awayBonus);
+        
+            // Update Total Legs Won display
+            let hLegsTotalElem = document.getElementById('home-legs-won-total');
+            let aLegsTotalElem = document.getElementById('away-legs-won-total');
+            if (hLegsTotalElem) hLegsTotalElem.innerText = isCup ? "-" : homeLegsWonSum;
+            if (aLegsTotalElem) aLegsTotalElem.innerText = isCup ? "-" : awayLegsWonSum;
+        
+            // Update Overall Pin Sums with points included
+            let hTotalSumElem = document.getElementById('home-total-sum');
+            let aTotalSumElem = document.getElementById('away-total-sum');
+            if (hTotalSumElem) hTotalSumElem.innerText = homeGrandTotal + (isCup ? "" : " (" + homeTotalPoints + " pts)");
+            if (aTotalSumElem) aTotalSumElem.innerText = awayGrandTotal + (isCup ? "" : " (" + awayTotalPoints + " pts)");
+        
+            // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
+            let homeBox = document.getElementById('home-grand-total');
+            let awayBox = document.getElementById('away-grand-total');
+        
+            if (homeBox && awayBox) {
+              if (homeGrandTotal > awayGrandTotal) {
+                homeBox.innerText = (homeGrandTotal - awayGrandTotal);
+                awayBox.innerText = "0";
+              } else if (awayGrandTotal > homeGrandTotal) {
+                homeBox.innerText = "0";
+                awayBox.innerText = (awayGrandTotal - homeGrandTotal);
+              } else {
+                homeBox.innerText = "0";
+                awayBox.innerText = "0";
               }
             }
           }
-        }
-    
-        // Calculate Bonus Points for Overall Pin Total Winner (+2 points)
-        let homeBonus = 0;
-        let awayBonus = 0;
-        if (homeGrandTotal > 0 || awayGrandTotal > 0) {
-          if (homeGrandTotal > awayGrandTotal) {
-            homeBonus = 2;
-          } else if (awayGrandTotal > homeGrandTotal) {
-            awayBonus = 2;
-          } else {
-            homeBonus = 1;
-            awayBonus = 1;
-          }
-        }
-    
-        let homeTotalPoints = isCup ? 0 : (homeLegsWonSum + homeBonus);
-        let awayTotalPoints = isCup ? 0 : (awayLegsWonSum + awayBonus);
-    
-        // Update Total Legs Won / Match Points display elements
-        let hLegsTotalElem = document.getElementById('home-legs-won-total');
-        let aLegsTotalElem = document.getElementById('away-legs-won-total');
-        if (hLegsTotalElem) hLegsTotalElem.innerText = isCup ? "-" : homeLegsWonSum;
-        if (aLegsTotalElem) aLegsTotalElem.innerText = isCup ? "-" : awayLegsWonSum;
-    
-        // Update Overall Pin Sums with points included
-        let hTotalSumElem = document.getElementById('home-total-sum');
-        let aTotalSumElem = document.getElementById('away-total-sum');
-        if (hTotalSumElem) hTotalSumElem.innerText = homeGrandTotal + (isCup ? "" : " (" + homeTotalPoints + " pts)");
-        if (aTotalSumElem) aTotalSumElem.innerText = awayGrandTotal + (isCup ? "" : " (" + awayTotalPoints + " pts)");
-    
-        // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
-        let homeBox = document.getElementById('home-grand-total');
-        let awayBox = document.getElementById('away-grand-total');
-    
-        if (homeBox && awayBox) {
-          if (homeGrandTotal > awayGrandTotal) {
-            homeBox.innerText = (homeGrandTotal - awayGrandTotal);
-            awayBox.innerText = "0";
-          } else if (awayGrandTotal > homeGrandTotal) {
-            homeBox.innerText = "0";
-            awayBox.innerText = (awayGrandTotal - homeGrandTotal);
-          } else {
-            homeBox.innerText = "0";
-            awayBox.innerText = "0";
-          }
-        }
-      }
-    
-      // Initialize on load
-      updateDivisionTeams();
-      calculateScores();
+        
+          // Initialize on load
+          updateDivisionTeams();
+          calculateScores();
   </script>
 
 </body>
