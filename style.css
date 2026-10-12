@@ -33,7 +33,7 @@ nav a:hover {
 
 /* Override global main container constraints for the scoreboard page */
   main {
-    max-width: none !important;
+    max-width: 1920px !important;
     background: transparent !important;
     box-shadow: none !important;
     padding: 0 !important;
