@@ -538,8 +538,9 @@
             hResElem.innerText = "-";
             aResElem.innerText = "I";
           } else {
-            hResElem.innerText = "-";
-            aResElem.innerText = "-";
+            // Equal scores result in a draw (1/2 for both)
+            hResElem.innerText = "1/2";
+            aResElem.innerText = "1/2";
           }
         }
       }
