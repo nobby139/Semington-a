@@ -4,15 +4,17 @@ title: Scoreboard - Semington A Skittles Team
 ---
 
 <style>
-  /* Scoreboard Container */
+  /* Scoreboard Container - Expands to fill available width */
   .scoreboard-board {
-    max-width: 1400px;
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
     background: white;
     border: 4px solid #222;
     border-radius: 8px;
     padding: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-sizing: border-box;
   }
 
   /* Venue Title Header - Side-by-side layout */
@@ -95,12 +97,12 @@ title: Scoreboard - Semington A Skittles Team
   .teams-grid {
     display: flex;
     gap: 15px;
-    overflow-x: auto;
+    width: 100%;
   }
 
   .team-column {
     flex: 1;
-    min-width: 480px;
+    min-width: 380px; /* Reduced to fit both columns comfortably */
   }
 
   .skittles-table {
@@ -111,7 +113,7 @@ title: Scoreboard - Semington A Skittles Team
 
   .skittles-table th, .skittles-table td {
     border: 1px solid #333;
-    padding: 6px;
+    padding: 6px 4px;
     vertical-align: middle;
   }
 
@@ -138,12 +140,12 @@ title: Scoreboard - Semington A Skittles Team
   }
 
   .score-input {
-    width: 65px !important;
+    width: 48px !important; /* Optimized width to fit all leg columns neatly */
     height: 34px;
     font-size: 1.1rem;
     font-weight: bold;
     text-align: center;
-    padding: 0 4px;
+    padding: 0 2px;
     border: 1px solid #999;
     border-radius: 4px;
     box-sizing: border-box;
@@ -162,7 +164,7 @@ title: Scoreboard - Semington A Skittles Team
   }
 
   .score-input.spare-box {
-    width: 65px !important;
+    width: 48px !important;
     background-color: #fffde7;
     border: 2px solid #000 !important;
     box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px #000;
@@ -175,10 +177,10 @@ title: Scoreboard - Semington A Skittles Team
     font-weight: bold;
   }
   
-  .scoreboard-table th:first-child,
-  .scoreboard-table td:first-child {
-    min-width: 150px;
-    width: 170px;
+  .skittles-table th:first-child,
+  .skittles-table td:first-child {
+    min-width: 130px;
+    width: 150px;
   }
 </style>
 
