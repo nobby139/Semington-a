@@ -186,29 +186,30 @@
         <span class="overall-score" id="home-grand-total">0</span>
       </div>
 
-      <!-- Division Selector -->
-<div class="format-select-box" style="margin-bottom: 10px; width: 100%; text-align: center;">
-  <label><strong>DIVISION:</strong></label>
-  <select class="team-select" id="division-select" onchange="updateDivisionTeams()">
-    <option value="premier" selected>Premier Division</option>
-    <option value="div1">Division 1</option>
-    <option value="cup">Cup Match</option>
-  </select>
-</div>                                                                                                                
-
-<!-- Venue Dropdown Center (All Venues) -->
-<div class="venue-box">
-  <select class="team-select" id="venue-select">
-    <option value="Liberal Club" selected>Liberal Club</option>
-    <option value="Semington Village Hall">Semington Village Hall</option>
-    <option value="Staverton Club">Staverton Club</option>
-    <option value="Seend Community Centre">Seend Community Centre</option>
-    <option value="Spencers Club">Spencers Club</option>
-    <option value="Conservative Club">Conservative Club</option>
-    <option value="The Pilot Inn">The Pilot Inn</option>
-    <option value="Forest Community Centre">Forest Community Centre</option>
-  </select>
-</div>
+      <!-- Division Selector (Placed First/Above) -->
+      <div class="format-select-box" style="margin-bottom: 10px; width: 100%; text-align: center;">
+        <label><strong>DIVISION:</strong></label>
+        <select class="team-select" id="division-select" onchange="updateDivisionTeams()">
+          <option value="premier" selected>Premier Division</option>
+          <option value="div1">Division 1</option>
+          <option value="cup">Cup Match</option>
+        </select>
+      </div>
+      
+      <!-- Venue Dropdown (Placed Below Division) -->
+      <div class="venue-box" style="margin-bottom: 10px; width: 100%; text-align: center;">
+        <label><strong>VENUE:</strong></label>
+        <select class="team-select" id="venue-select">
+          <option value="Liberal Club" selected>Liberal Club</option>
+          <option value="Semington Village Hall">Semington Village Hall</option>
+          <option value="Staverton Club">Staverton Club</option>
+          <option value="Seend Community Centre">Seend Community Centre</option>
+          <option value="Spencers Club">Spencers Club</option>
+          <option value="Conservative Club">Conservative Club</option>
+          <option value="The Pilot Inn">The Pilot Inn</option>
+          <option value="Forest Community Centre">Forest Community Centre</option>
+        </select>
+      </div>
 
       <div class="team-title-box">
         <label><strong>VISITORS:</strong></label>
