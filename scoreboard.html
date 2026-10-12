@@ -73,12 +73,14 @@
       gap: 10px;
     }
 
-    .team-title-box input {
-      font-size: 1.1rem;
+    .team-select {
+      font-size: 1.05rem;
       font-weight: bold;
-      padding: 4px 8px;
-      border: 1px solid #ccc;
+      padding: 6px 10px;
+      border: 2px solid #333;
       border-radius: 4px;
+      background-color: #fff;
+      cursor: pointer;
     }
 
     .overall-score {
@@ -173,11 +175,24 @@
   <!-- Traditional Skittles Scoreboard -->
   <div class="scoreboard-board">
     
-    <!-- Top Header Bar -->
+    <!-- Top Header Bar with Dropdowns -->
     <div class="venue-header">
       <div class="team-title-box">
         <label><strong>HOME:</strong></label>
-        <input type="text" value="Drifters" id="home-name">
+        <select class="team-select" id="home-team-select">
+          <option value="Semington A" selected>Semington A</option>
+          <option value="Avon A">Avon A</option>
+          <option value="Cons C">Cons C</option>
+          <option value="Cons D">Cons D</option>
+          <option value="GBU">GBU</option>
+          <option value="Holt A">Holt A</option>
+          <option value="M.U.D.S.">M.U.D.S.</option>
+          <option value="Motley Crew">Motley Crew</option>
+          <option value="Seend A">Seend A</option>
+          <option value="Semington B">Semington B</option>
+          <option value="Spencers B">Spencers B</option>
+          <option value="Staverton A">Staverton A</option>
+        </select>
         <span class="overall-score" id="home-grand-total">0</span>
       </div>
 
@@ -185,7 +200,20 @@
 
       <div class="team-title-box">
         <label><strong>VISITORS:</strong></label>
-        <input type="text" value="Semington A" id="away-name">
+        <select class="team-select" id="away-team-select">
+          <option value="Semington A">Semington A</option>
+          <option value="Avon A">Avon A</option>
+          <option value="Cons C">Cons C</option>
+          <option value="Cons D">Cons D</option>
+          <option value="GBU">GBU</option>
+          <option value="Holt A">Holt A</option>
+          <option value="M.U.D.S.">M.U.D.S.</option>
+          <option value="Motley Crew">Motley Crew</option>
+          <option value="Seend A">Seend A</option>
+          <option value="Semington B">Semington B</option>
+          <option value="Spencers B">Spencers B</option>
+          <option value="Staverton A" selected>Staverton A</option>
+        </select>
         <span class="overall-score" id="away-grand-total">0</span>
       </div>
     </div>
@@ -198,7 +226,7 @@
         <table class="skittles-table" id="home-table">
           <thead>
             <tr>
-              <th colspan="9" class="team-header">HOME TEAM</th>
+              <th colspan="9" class="team-header" id="home-header-display">HOME TEAM</th>
             </tr>
             <tr>
               <th>NAME</th>
@@ -240,7 +268,7 @@
         <table class="skittles-table" id="away-table">
           <thead>
             <tr>
-              <th colspan="9" class="team-header">VISITORS</th>
+              <th colspan="9" class="team-header" id="away-header-display">VISITORS</th>
             </tr>
             <tr>
               <th>NAME</th>
@@ -280,8 +308,19 @@
     </div>
   </div>
 
-  <!-- Auto-calculation Logic -->
+  <!-- Auto-calculation & Dropdown Update Logic -->
   <script>
+    function updateTeamHeaders() {
+      const homeSelect = document.getElementById('home-team-select');
+      const awaySelect = document.getElementById('away-team-select');
+      
+      document.getElementById('home-header-display').innerText = homeSelect.value.toUpperCase();
+      document.getElementById('away-header-display').innerText = awaySelect.value.toUpperCase();
+    }
+
+    document.getElementById('home-team-select').addEventListener('change', updateTeamHeaders);
+    document.getElementById('away-team-select').addEventListener('change', updateTeamHeaders);
+
     function calculateScores() {
       ['home', 'away'].forEach(team => {
         let table = document.getElementById(`${team}-table`);
@@ -311,6 +350,9 @@
         document.getElementById(`${team}-grand-total`).innerText = grandTotal;
       });
     }
+
+    // Initialize headers on load
+    updateTeamHeaders();
   </script>
 
 </body>
