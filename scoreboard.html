@@ -372,7 +372,7 @@
           </tbody>
           <tfoot>
             <tr class="totals-row">
-              <td>LEG TOTALS</td>
+              <td>Legs Won</td>
               <td id="home-leg-1">0</td>
               <td id="home-leg-2">0</td>
               <td id="home-leg-3">0</td>
@@ -421,7 +421,7 @@
           </tbody>
           <tfoot>
             <tr class="totals-row">
-              <td>LEG TOTALS</td>
+              <td>Legs Won</td>
               <td id="away-leg-1">0</td>
               <td id="away-leg-2">0</td>
               <td id="away-leg-3">0</td>
@@ -585,72 +585,78 @@
               awayGrandTotal += playerTotal;
             });
         
-            // --- 1. LEG TOTALS ROW (Sum of pins for each leg 1 through 5) ---
-            for (let leg = 1; leg <= 5; leg++) {
-              let hLegElem = document.getElementById(`home-leg-${leg}`);
-              let aLegElem = document.getElementById(`away-leg-${leg}`);
-              if (hLegElem) hLegElem.innerText = homeLegTotals[leg - 1];
-              if (aLegElem) aLegElem.innerText = awayLegTotals[leg - 1];
-            }
-        
-            // --- 2. LEGS WON ROW (I = Win, 1/2 = Draw, - = Loss) ---
-            const divisionElem = document.getElementById('division-select');
-            const divisionVal = divisionElem ? divisionElem.value : 'premier';
-            const isCup = (divisionVal === 'cup');
-        
-            let homeLegsWonSum = 0;
-            let awayLegsWonSum = 0;
-        
-            for (let leg = 1; leg <= 5; leg++) {
-              let hScore = homeLegTotals[leg - 1];
-              let aScore = awayLegTotals[leg - 1];
-              
-              let hResElem = document.getElementById(`home-leg-res-${leg}`);
-              let aResElem = document.getElementById(`away-leg-res-${leg}`);
-        
-              if (hResElem && aResElem) {
-                if (isCup || (hScore === 0 && aScore === 0)) {
-                  hResElem.innerText = "-";
-                  aResElem.innerText = "-";
-                } else if (hScore > aScore) {
-                  hResElem.innerText = "I";
-                  aResElem.innerText = "-";
-                  homeLegsWonSum += 1;
-                } else if (aScore > hScore) {
-                  hResElem.innerText = "-";
-                  aResElem.innerText = "I";
-                  awayLegsWonSum += 1;
-                } else {
-                  hResElem.innerText = "1/2";
-                  aResElem.innerText = "1/2";
-                  homeLegsWonSum += 0.5;
-                  awayLegsWonSum += 0.5;
+            // --- 1. UPDATE LEG TOTALS ROW (Actual pin sums per leg) ---
+                for (let leg = 1; leg <= 5; leg++) {
+                  let hLegElem = document.getElementById(`home-leg-${leg}`);
+                  let aLegElem = document.getElementById(`away-leg-${leg}`);
+                  if (hLegElem) hLegElem.innerText = homeLegTotals[leg - 1];
+                  if (aLegElem) aLegElem.innerText = awayLegTotals[leg - 1];
                 }
-              }
-            }
-        
-            // --- 3. TOTAL MATCH POINTS & GRAND TOTALS ---
-            let homeBonus = 0;
-            let awayBonus = 0;
-            if (homeGrandTotal > 0 || awayGrandTotal > 0) {
-              if (homeGrandTotal > awayGrandTotal) {
-                homeBonus = 2;
-              } else if (awayGrandTotal > homeGrandTotal) {
-                awayBonus = 2;
-              } else {
-                homeBonus = 1;
-                awayBonus = 1;
-              }
-            }
-        
-            let homeTotalPoints = isCup ? 0 : (homeLegsWonSum + homeBonus);
-            let awayTotalPoints = isCup ? 0 : (awayLegsWonSum + awayBonus);
-        
-            // Update Overall Total Legs Won Cell
-            let hLegsTotalElem = document.getElementById('home-legs-won-total');
-            let aLegsTotalElem = document.getElementById('away-legs-won-total');
-            if (hLegsTotalElem) hLegsTotalElem.innerText = isCup ? "-" : homeLegsWonSum;
-            if (aLegsTotalElem) aLegsTotalElem.innerText = isCup ? "-" : awayLegsWonSum;
+            
+                // Update far right grand pinfall sum cell
+                let hTotalSumElem = document.getElementById('home-total-sum');
+                let aTotalSumElem = document.getElementById('away-total-sum');
+                if (hTotalSumElem) hTotalSumElem.innerText = homeGrandTotal;
+                if (aTotalSumElem) aTotalSumElem.innerText = awayGrandTotal;
+            
+                // --- 2. UPDATE LEGS WON ROW (I = Win, 1/2 = Draw, - = Loss) ---
+                const divisionElem = document.getElementById('division-select');
+                const divisionVal = divisionElem ? divisionElem.value : 'premier';
+                const isCup = (divisionVal === 'cup');
+            
+                let homeLegsWonSum = 0;
+                let awayLegsWonSum = 0;
+            
+                for (let leg = 1; leg <= 5; leg++) {
+                  let hScore = homeLegTotals[leg - 1];
+                  let aScore = awayLegTotals[leg - 1];
+                  
+                  let hResElem = document.getElementById(`home-leg-res-${leg}`);
+                  let aResElem = document.getElementById(`away-leg-res-${leg}`);
+            
+                  if (hResElem && aResElem) {
+                    if (isCup || (hScore === 0 && aScore === 0)) {
+                      hResElem.innerText = "-";
+                      aResElem.innerText = "-";
+                    } else if (hScore > aScore) {
+                      hResElem.innerText = "I";
+                      aResElem.innerText = "-";
+                      homeLegsWonSum += 1;
+                    } else if (aScore > hScore) {
+                      hResElem.innerText = "-";
+                      aResElem.innerText = "I";
+                      awayLegsWonSum += 1;
+                    } else {
+                      hResElem.innerText = "1/2";
+                      aResElem.innerText = "1/2";
+                      homeLegsWonSum += 0.5;
+                      awayLegsWonSum += 0.5;
+                    }
+                  }
+                }
+            
+                // --- 3. BONUS POINTS (+2 for pinfall winner) & TOTAL DISPLAY ---
+                let homeBonus = 0;
+                let awayBonus = 0;
+                if (homeGrandTotal > 0 || awayGrandTotal > 0) {
+                  if (homeGrandTotal > awayGrandTotal) {
+                    homeBonus = 2;
+                  } else if (awayGrandTotal > homeGrandTotal) {
+                    awayBonus = 2;
+                  } else {
+                    homeBonus = 1;
+                    awayBonus = 1;
+                  }
+                }
+            
+                let homeTotalPoints = isCup ? 0 : (homeLegsWonSum + homeBonus);
+                let awayTotalPoints = isCup ? 0 : (awayLegsWonSum + awayBonus);
+            
+                // Write final legs won and total match points into the bottom right box
+                let hLegsTotalElem = document.getElementById('home-legs-won-total');
+                let aLegsTotalElem = document.getElementById('away-legs-won-total');
+                if (hLegsTotalElem) hLegsTotalElem.innerText = isCup ? "-" : `${homeLegsWonSum} (${homeTotalPoints} pts)`;
+                if (aLegsTotalElem) aLegsTotalElem.innerText = isCup ? "-" : `${awayLegsWonSum} (${awayTotalPoints} pts)`;
         
             // Update Bottom TOTALS Row (Overall Pin Sum + Match Points)
             let hTotalSumElem = document.getElementById('home-total-sum');
