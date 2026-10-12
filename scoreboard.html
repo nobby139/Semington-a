@@ -239,6 +239,23 @@
       width: 65px !important;
       box-sizing: border-box;
     }
+
+    /* Give the Name column specific minimum and flexible width */
+    .scoreboard-table th:first-child,
+    .scoreboard-table td:first-child {
+      min-width: 150px; /* Widens the entire Name column */
+      width: 170px;
+    }
+    
+    /* Make the player name input boxes fill the wider cell */
+    .player-name-input {
+      width: 100% !important;
+      font-size: 1rem;
+      padding: 6px 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
