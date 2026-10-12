@@ -31,14 +31,13 @@ nav a:hover {
   text-decoration: underline;
 }
 
-main {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+/* Override global main container constraints for the scoreboard page */
+  main {
+    max-width: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
 
 .filter-container {
   margin-bottom: 20px;
