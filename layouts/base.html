@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{  }}</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Semington A Skittles Team</h1>
+    <nav class="nav-buttons">
+      <a href="{{ site.baseurl }}/index.html" class="btn">Home</a>
+      <a href="{{ site.baseurl }}/fixtures.html" class="btn">Fixtures & Results</a>
+      <a href="{{ site.baseurl }}/scoreboard.html" class="btn">Scoreboard</a>
+      <a href="{{ site.baseurl }}/results.html" class="btn">Match Results</a>
+      <a href="{{ site.baseurl }}/tocatch.html" class="btn">To Catch</a>
+      <a href="{{ site.baseurl }}/gallery.html" class="btn">Gallery</a>
+      <a href="{{ site.baseurl }}/rules.html" class="btn">Rules</a>
+    </nav>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  {% if page.script %}
+    <script src="{{ site.baseurl }}/{{ page.script }}"></script>
+  {% endif %}
+
+</body>
+</html>
