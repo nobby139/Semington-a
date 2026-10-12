@@ -1,3 +1,6 @@
+/* ==========================================================================
+   GLOBAL BASE & THEME STYLES
+   ========================================================================== */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -55,6 +58,9 @@ select {
   color: #666;
 }
 
+/* ==========================================================================
+   GENERAL & SCOREBOARD TABLES
+   ========================================================================== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -76,6 +82,72 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
+/* Scoreboard Specific Layout & Rigid Column Alignment */
+.tables-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+@media (min-width: 900px) {
+  .tables-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.scoreboard-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.scoreboard-table th:first-child,
+.scoreboard-table td:first-child {
+  width: 35%;
+  text-align: left;
+  padding-left: 8px;
+}
+
+.scoreboard-table th:not(:first-child),
+.scoreboard-table td:not(:first-child) {
+  width: 9.28%;
+  text-align: center;
+}
+
+.scoreboard-table input.score-input {
+  width: 100%;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 1em;
+}
+
+.scoreboard-table input.player-name-input {
+  width: 100%;
+  padding: 6px;
+  font-size: 1em;
+}
+
+.scoreboard-table tfoot tr td {
+  font-weight: bold;
+  padding: 10px 4px;
+}
+
+.scoreboard-table tfoot tr.totals-row td:first-child,
+.scoreboard-table tfoot tr.legs-won-row td:first-child {
+  text-align: left;
+  padding-left: 8px;
+}
+
+/* Spare box highlight (10 or more pins) */
+.spare-box {
+  background-color: #fff3cd;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   BUTTONS & UI ELEMENTS
+   ========================================================================== */
 .button {
   display: inline-block;
   background-color: #1b365d;
