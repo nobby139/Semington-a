@@ -46,6 +46,42 @@ title: Scoreboard - Semington A Skittles Team
     font-weight: bold !important;
   }
 
+  /* 1. Center the numbers and text in all table header cells */
+  .skittles-table th {
+    text-align: center !important;
+    color: #000 !important;
+    font-weight: bold !important;
+  }
+
+  /* Keep the player NAME column left-aligned for readability, but center the rest */
+  .skittles-table th:first-child,
+  .skittles-table td:first-child {
+    text-align: left !important;
+    padding-left: 10px;
+  }
+
+  /* 2. Fix the dark/blended team header font color so it's crisp and bright white */
+  .skittles-table th.team-header {
+    background-color: #2b3a4a !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  /* 3. Center the top team control areas and venue/division labels */
+  .venue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+
+  .team-control-box, .central-meta-box {
+    text-align: center;
+    align-items: center;
+  }
+
   .venue-header h2 {
     margin: 0;
     font-size: 1.5rem;
