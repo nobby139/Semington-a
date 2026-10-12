@@ -364,21 +364,20 @@
       document.getElementById('home-total-sum').innerText = homeGrandTotal;
       document.getElementById('away-total-sum').innerText = awayGrandTotal;
   
-      // Calculate Legs Won for Top Boxes
-      let homeLegsWon = 0;
-      let awayLegsWon = 0;
+      // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
+      let homeBox = document.getElementById('home-grand-total');
+      let awayBox = document.getElementById('away-grand-total');
   
-      for (let leg = 0; leg < 5; leg++) {
-        let h = homeLegTotals[leg];
-        let a = awayLegTotals[leg];
-        if (h > 0 || a > 0) {
-          if (h > a) homeLegsWon += 1;
-          else if (a > h) awayLegsWon += 1;
-        }
+      if (homeGrandTotal > awayGrandTotal) {
+        homeBox.innerText = (homeGrandTotal - awayGrandTotal);
+        awayBox.innerText = "0";
+      } else if (awayGrandTotal > homeGrandTotal) {
+        homeBox.innerText = "0";
+        awayBox.innerText = (awayGrandTotal - homeGrandTotal);
+      } else {
+        homeBox.innerText = "0";
+        awayBox.innerText = "0";
       }
-  
-      document.getElementById('home-grand-total').innerText = homeLegsWon;
-      document.getElementById('away-grand-total').innerText = awayLegsWon;
     }
   
     // Initialize on load
