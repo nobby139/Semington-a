@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Semington A Skittles Club</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-  <header>
-    <h1>Semington A Skittles Team</h1>
-    <nav class="nav-buttons">
-      <a href="index.html" class="btn">Home</a>
-      <a href="fixtures.html" class="btn">Fixtures & Results</a>
-      <a href="scoreboard.html" class="btn">Scoreboard</a>
-      <a href="results.html" class="btn">Match Results</a>
-      <a href="tocatch.html" class="btn">To Catch</a>
-      <a href="gallery.html" class="btn">Gallery</a>
-      <a href="rules.html" class="btn">Rules</a>
-    </nav>
-  </header>
+{% block title %}Home - Semington Skittles & Transport Hub{% endblock %}
 
-  <main>
-    <h2>Welcome to Semington A Skittles Team</h2>
-    <p>Welcome to our official team website. Check out our latest match schedules, venues, and competition results on our fixtures page.</p>
-    
+{% block content -->
+  <!-- TOP OF INDEX CONTENT -->
+  <div class="filter-container">
+    <h2>Welcome to the Skittles League & Transport Hub</h2>
+  </div>
 
-  </main>
+  <div id="status">
+    <p>Use the navigation menu above or the quick links below to access scoreboards, fixtures, and league rules.</p>
+  </div>
 
-</body>
-</html>
+  <!-- SITE-WIDE HEADER & NAVIGATION -->
+    <header>
+      <h1>Semington Skittles & Transport Hub</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/fixtures">Fixtures & Results</a>
+        <a href="/scoreboard">Scoreboard</a>
+        <a href="/match-results">Match Results</a>
+        <a href="/to-catch">To Catch</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/rules">Rules</a>
+      </nav>
+    </header>
+  <!-- BOTTOM OF INDEX CONTENT -->
+{% endblock %}
+
+{% block scripts %}
+  <!-- Add any homepage-specific JavaScript here if needed -->
+{% endblock %}
