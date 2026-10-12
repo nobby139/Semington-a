@@ -175,48 +175,59 @@
   <!-- Traditional Skittles Scoreboard -->
   <div class="scoreboard-board">
     
-    <!-- Top Header Bar with Division, Teams & Venue Dropdowns -->
-    <div class="venue-header">
+    <!-- Top Header Bar with Division, Teams & Venue Dropdowns (Expanded Whitespace) -->
+    <div class="venue-header" style="display: flex; flex-direction: column; align-items: center; gap: 15px; padding: 25px 20px; min-height: 140px; background-color: #f8f9fa; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 20px;">
 
-      <div class="team-title-box">
-        <label><strong>HOME:</strong></label>
-        <select class="team-select" id="home-team-select">
-          <!-- Populated dynamically via script -->
-        </select>
-        <span class="overall-score" id="home-grand-total">0</span>
-      </div>
+      <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 15px;">
+        
+        <!-- HOME TEAM SELECT -->
+        <div class="team-title-box" style="flex: 1; min-width: 200px; text-align: center;">
+          <label><strong>HOME:</strong></label>
+          <select class="team-select" id="home-team-select">
+            <!-- Populated dynamically via script -->
+          </select>
+          <span class="overall-score" id="home-grand-total">0</span>
+        </div>
 
-      <!-- Division Selector (Placed First/Above) -->
-      <div class="format-select-box" style="margin-bottom: 10px; width: 100%; text-align: center;">
-        <label><strong>DIVISION:</strong></label>
-        <select class="team-select" id="division-select" onchange="updateDivisionTeams()">
-          <option value="premier" selected>Premier Division</option>
-          <option value="div1">Division 1</option>
-          <option value="cup">Cup Match</option>
-        </select>
-      </div>
-      
-      <!-- Venue Dropdown (Placed Below Division) -->
-      <div class="venue-box" style="margin-bottom: 10px; width: 100%; text-align: center;">
-        <label><strong>VENUE:</strong></label>
-        <select class="team-select" id="venue-select">
-          <option value="Liberal Club" selected>Liberal Club</option>
-          <option value="Semington Village Hall">Semington Village Hall</option>
-          <option value="Staverton Club">Staverton Club</option>
-          <option value="Seend Community Centre">Seend Community Centre</option>
-          <option value="Spencers Club">Spencers Club</option>
-          <option value="Conservative Club">Conservative Club</option>
-          <option value="The Pilot Inn">The Pilot Inn</option>
-          <option value="Forest Community Centre">Forest Community Centre</option>
-        </select>
-      </div>
+        <!-- CENTER DROPDOWNS (Division & Venue Stacked) -->
+        <div style="display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 220px; align-items: center;">
+          
+          <!-- Division Selector -->
+          <div class="format-select-box" style="width: 100%; text-align: center;">
+            <label><strong>DIVISION:</strong></label>
+            <select class="team-select" id="division-select" onchange="updateDivisionTeams()">
+              <option value="premier" selected>Premier Division</option>
+              <option value="div1">Division 1</option>
+              <option value="cup">Cup Match</option>
+            </select>
+          </div>
+          
+          <!-- Venue Dropdown -->
+          <div class="venue-box" style="width: 100%; text-align: center;">
+            <label><strong>VENUE:</strong></label>
+            <select class="team-select" id="venue-select">
+              <option value="Liberal Club" selected>Liberal Club</option>
+              <option value="Semington Village Hall">Semington Village Hall</option>
+              <option value="Staverton Club">Staverton Club</option>
+              <option value="Seend Community Centre">Seend Community Centre</option>
+              <option value="Spencers Club">Spencers Club</option>
+              <option value="Conservative Club">Conservative Club</option>
+              <option value="The Pilot Inn">The Pilot Inn</option>
+              <option value="Forest Community Centre">Forest Community Centre</option>
+            </select>
+          </div>
 
-      <div class="team-title-box">
-        <label><strong>VISITORS:</strong></label>
-        <select class="team-select" id="away-team-select">
-          <!-- Populated dynamically via script -->
-        </select>
-        <span class="overall-score" id="away-grand-total">0</span>
+        </div>
+
+        <!-- VISITORS TEAM SELECT -->
+        <div class="team-title-box" style="flex: 1; min-width: 200px; text-align: center;">
+          <label><strong>VISITORS:</strong></label>
+          <select class="team-select" id="away-team-select">
+            <!-- Populated dynamically via script -->
+          </select>
+          <span class="overall-score" id="away-grand-total">0</span>
+        </div>
+
       </div>
     </div>
 
