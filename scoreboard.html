@@ -96,13 +96,13 @@
       gap: 12px;
       flex: 1;
       max-width: 280px;
-      align-items: center; /* Changes alignment from far-right to center */
+      align-items: center;
     }
 
     .meta-row {
       display: flex;
       align-items: center;
-      justify-content: center; /* Centers the label and dropdown together */
+      justify-content: center;
       gap: 15px;
       width: 100%;
     }
@@ -180,6 +180,12 @@
     .total-cell {
       font-weight: bold;
       background-color: #f8f9fa;
+      font-size: 1rem;
+    }
+
+    .leg-result-row td {
+      font-weight: bold;
+      background-color: #eaeff2;
       font-size: 1rem;
     }
 
@@ -271,9 +277,7 @@
         </div>
       </div>
   
-    </div>  
-  
-
+    </div>
   
     <!-- Tables Grid -->
     <div class="teams-grid">
@@ -305,6 +309,15 @@
             </script>
           </tbody>
           <tfoot>
+            <tr class="leg-result-row">
+              <td>LEG WON</td>
+              <td id="home-leg-res-1">-</td>
+              <td id="home-leg-res-2">-</td>
+              <td id="home-leg-res-3">-</td>
+              <td id="home-leg-res-4">-</td>
+              <td id="home-leg-res-5">-</td>
+              <td>-</td>
+            </tr>
             <tr class="totals-row">
               <td>TOTALS</td>
               <td id="home-leg-1">0</td>
@@ -345,6 +358,15 @@
             </script>
           </tbody>
           <tfoot>
+            <tr class="leg-result-row">
+              <td>LEG WON</td>
+              <td id="away-leg-res-1">-</td>
+              <td id="away-leg-res-2">-</td>
+              <td id="away-leg-res-3">-</td>
+              <td id="away-leg-res-4">-</td>
+              <td id="away-leg-res-5">-</td>
+              <td>-</td>
+            </tr>
             <tr class="totals-row">
               <td>TOTALS</td>
               <td id="away-leg-1">0</td>
@@ -428,6 +450,7 @@
       });
 
       updateTeamHeaders();
+      calculateScores();
     }
 
     function updateTeamHeaders() {
@@ -489,6 +512,37 @@
       // Update Overall Pin Sums
       document.getElementById('home-total-sum').innerText = homeGrandTotal;
       document.getElementById('away-total-sum').innerText = awayGrandTotal;
+
+      // --- LEG WINNER CALCULATIONS (Premier & Div 1 Only) ---
+      const divisionVal = document.getElementById('division-select').value;
+      const isCup = (divisionVal === 'cup');
+
+      for (let leg = 1; leg <= 5; leg++) {
+        let hScore = homeLegTotals[leg - 1];
+        let aScore = awayLegTotals[leg - 1];
+        
+        let hResElem = document.getElementById(`home-leg-res-${leg}`);
+        let aResElem = document.getElementById(`away-leg-res-${leg}`);
+
+        if (isCup) {
+          hResElem.innerText = "-";
+          aResElem.innerText = "-";
+        } else {
+          if (hScore === 0 && aScore === 0) {
+            hResElem.innerText = "-";
+            aResElem.innerText = "-";
+          } else if (hScore > aScore) {
+            hResElem.innerText = "I";
+            aResElem.innerText = "-";
+          } else if (aScore > hScore) {
+            hResElem.innerText = "-";
+            aResElem.innerText = "I";
+          } else {
+            hResElem.innerText = "-";
+            aResElem.innerText = "-";
+          }
+        }
+      }
 
       // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
       let homeBox = document.getElementById('home-grand-total');
