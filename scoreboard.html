@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scoreboard - Semington A Skittles Team</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    /* Navigation Bar */
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      background-color: #5a6268;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .btn.active, .btn:hover {
+      background-color: #343a40;
+    }
+
+    /* Scoreboard Container */
+    .scoreboard-board {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border: 4px solid #222;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* Venue Title Header */
+    .venue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #222;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .venue-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .team-title-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team-title-box input {
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .overall-score {
+      font-size: 1.3rem;
+      font-weight: bold;
+      background: #e9ecef;
+      padding: 4px 12px;
+      border-radius: 4px;
+      border: 1px solid #bbb;
+    }
+
+    /* Side-by-side Tables */
+    .teams-grid {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+    }
+
+    .team-column {
+      flex: 1;
+      min-width: 480px;
+    }
+
+    .skittles-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    .skittles-table th, .skittles-table td {
+      border: 1px solid #333;
+      padding: 6px;
+    }
+
+    .skittles-table th {
+      background-color: #e2e8f0;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .skittles-table th.team-header {
+      background-color: #2b3a4a;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .player-name-input {
+      width: 90%;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: bold;
+    }
+
+    .score-input {
+      width: 32px;
+      text-align: center;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+
+    .total-cell {
+      font-weight: bold;
+      background-color: #f8f9fa;
+      font-size: 1rem;
+    }
+
+    .totals-row td {
+      font-weight: bold;
+      background-color: #d1ecf1;
+      font-size: 1.05rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Semington A Skittles Club</h1>
+  </header>
+
+  <!-- Navigation Menu -->
+  <nav class="nav-buttons">
+    <a href="index.html" class="btn">Home</a>
+    <a href="fixtures.html" class="btn">Fixtures & Results</a>
+    <a href="scoreboard.html" class="btn active">Scoreboard</a>
+    <a href="results.html" class="btn">Match Results</a>
+    <a href="tocatch.html" class="btn">To Catch</a>
+    <a href="gallery.html" class="btn">Gallery</a>
+    <a href="rules.html" class="btn">Rules</a>
+  </nav>
+
+  <!-- Traditional Skittles Scoreboard -->
+  <div class="scoreboard-board">
+    
+    <!-- Top Header Bar -->
+    <div class="venue-header">
+      <div class="team-title-box">
+        <label><strong>HOME:</strong></label>
+        <input type="text" value="Drifters" id="home-name">
+        <span class="overall-score" id="home-grand-total">0</span>
+      </div>
+
+      <h2>LIBERAL CLUB</h2>
+
+      <div class="team-title-box">
+        <label><strong>VISITORS:</strong></label>
+        <input type="text" value="Semington A" id="away-name">
+        <span class="overall-score" id="away-grand-total">0</span>
+      </div>
+    </div>
+
+    <!-- Tables Grid -->
+    <div class="teams-grid">
+      
+      <!-- HOME TEAM TABLE -->
+      <div class="team-column">
+        <table class="skittles-table" id="home-table">
+          <thead>
+            <tr>
+              <th colspan="9" class="team-header">HOME TEAM</th>
+            </tr>
+            <tr>
+              <th>NAME</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+              <th>TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 10 Player Rows -->
+            <script>
+              for(let i=1; i<=10; i++){
+                document.write(`
+                  <tr class="player-row">
+                    <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
+                    ${[1,2,3,4,5,6].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
+                    <td class="total-cell player-total">0</td>
+                  </tr>
+                `);
+              }
+            </script>
+          </tbody>
+          <tfoot>
+            <tr class="totals-row">
+              <td>TOTALS</td>
+              <td id="home-leg-1">0</td>
+              <td id="home-leg-2">0</td>
+              <td id="home-leg-3">0</td>
+              <td id="home-leg-4">0</td>
+              <td id="home-leg-5">0</td>
+              <td id="home-leg-6">0</td>
+              <td id="home-total-sum">0</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- AWAY TEAM TABLE -->
+      <div class="team-column">
+        <table class="skittles-table" id="away-table">
+          <thead>
+            <tr>
+              <th colspan="9" class="team-header">VISITORS</th>
+            </tr>
+            <tr>
+              <th>NAME</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+              <th>TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 10 Player Rows -->
+            <script>
+              for(let i=1; i<=10; i++){
+                document.write(`
+                  <tr class="player-row">
+                    <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
+                    ${[1,2,3,4,5,6].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
+                    <td class="total-cell player-total">0</td>
+                  </tr>
+                `);
+              }
+            </script>
+          </tbody>
+          <tfoot>
+            <tr class="totals-row">
+              <td>TOTALS</td>
+              <td id="away-leg-1">0</td>
+              <td id="away-leg-2">0</td>
+              <td id="away-leg-3">0</td>
+              <td id="away-leg-4">0</td>
+              <td id="away-leg-5">0</td>
+              <td id="away-leg-6">0</td>
+              <td id="away-total-sum">0</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Auto-calculation Logic -->
+  <script>
+    function calculateScores() {
+      ['home', 'away'].forEach(team => {
+        let table = document.getElementById(`${team}-table`);
+        let rows = table.querySelectorAll('.player-row');
+        let legTotals = [0, 0, 0, 0, 0, 0];
+        let grandTotal = 0;
+
+        rows.forEach(row => {
+          let playerTotal = 0;
+          for (let leg = 1; leg <= 6; leg++) {
+            let input = row.querySelector(`.leg-${leg}`);
+            let val = parseInt(input.value) || 0;
+            playerTotal += val;
+            legTotals[leg - 1] += val;
+          }
+          row.querySelector('.player-total').innerText = playerTotal;
+          grandTotal += playerTotal;
+        });
+
+        // Update Leg Totals
+        for (let leg = 1; leg <= 6; leg++) {
+          document.getElementById(`${team}-leg-${leg}`).innerText = legTotals[leg - 1];
+        }
+
+        // Update Team Grand Totals
+        document.getElementById(`${team}-total-sum`).innerText = grandTotal;
+        document.getElementById(`${team}-grand-total`).innerText = grandTotal;
+      });
+    }
+  </script>
+
+</body>
+</html>
