@@ -371,25 +371,27 @@
             </script>
           </tbody>
           <tfoot>
-            <tr class="totals-row">
-              <td>Legs Won</td>
-              <td id="home-leg-1">0</td>
-              <td id="home-leg-2">0</td>
-              <td id="home-leg-3">0</td>
-              <td id="home-leg-4">0</td>
-              <td id="home-leg-5">0</td>
-              <td id="home-total-sum">0</td>
-            </tr>    
-            <tr class="totals-row">
-              <td>TOTALS</td>
-              <td id="home-leg-1">0</td>
-              <td id="home-leg-2">0</td>
-              <td id="home-leg-3">0</td>
-              <td id="home-leg-4">0</td>
-              <td id="home-leg-5">0</td>
-              <td id="home-total-sum">0</td>
-            </tr>
-          </tfoot>
+          <!-- ROW 1: Pin Totals per Leg & Grand Total Pins -->
+          <tr class="totals-row">
+            <td>TOTALS</td>
+            <td id="home-leg-1">0</td>
+            <td id="home-leg-2">0</td>
+            <td id="home-leg-3">0</td>
+            <td id="home-leg-4">0</td>
+            <td id="home-leg-5">0</td>
+            <td id="home-total-sum">0</td>
+          </tr>
+          <!-- ROW 2 (BOTTOM): Legs Won Notation (I, 1/2, -) & Total Match Points -->
+          <tr class="legs-won-row">
+            <td>LEGS WON</td>
+            <td id="home-leg-res-1">-</td>
+            <td id="home-leg-res-2">-</td>
+            <td id="home-leg-res-3">-</td>
+            <td id="home-leg-res-4">-</td>
+            <td id="home-leg-res-5">-</td>
+            <td id="home-legs-won-total">0 (0 pts)</td>
+          </tr>
+        </tfoot>
         </table>
       </div>
   
@@ -420,25 +422,27 @@
             </script>
           </tbody>
           <tfoot>
-            <tr class="totals-row">
-              <td>Legs Won</td>
-              <td id="away-leg-1">0</td>
-              <td id="away-leg-2">0</td>
-              <td id="away-leg-3">0</td>
-              <td id="away-leg-4">0</td>
-              <td id="away-leg-5">0</td>
-              <td id="away-total-sum">0</td>
-            </tr>
-            <tr class="totals-row">
-              <td>TOTALS</td>
-              <td id="away-leg-1">0</td>
-              <td id="away-leg-2">0</td>
-              <td id="away-leg-3">0</td>
-              <td id="away-leg-4">0</td>
-              <td id="away-leg-5">0</td>
-              <td id="away-total-sum">0</td>
-            </tr>
-          </tfoot>
+          <!-- ROW 1: Pin Totals per Leg & Grand Total Pins -->
+          <tr class="totals-row">
+            <td>TOTALS</td>
+            <td id="home-leg-1">0</td>
+            <td id="home-leg-2">0</td>
+            <td id="home-leg-3">0</td>
+            <td id="home-leg-4">0</td>
+            <td id="home-leg-5">0</td>
+            <td id="home-total-sum">0</td>
+          </tr>
+          <!-- ROW 2 (BOTTOM): Legs Won Notation (I, 1/2, -) & Total Match Points -->
+          <tr class="legs-won-row">
+            <td>LEGS WON</td>
+            <td id="home-leg-res-1">-</td>
+            <td id="home-leg-res-2">-</td>
+            <td id="home-leg-res-3">-</td>
+            <td id="home-leg-res-4">-</td>
+            <td id="home-leg-res-5">-</td>
+            <td id="home-legs-won-total">0 (0 pts)</td>
+          </tr>
+        </tfoot>
         </table>
       </div>
 
@@ -447,8 +451,8 @@
   </div>
 
   <!-- Auto-calculation & Dropdown Update Logic -->
-  <script>
-    const premierTeams = [
+    <script>
+      const premierTeams = [
         "Staverton A",
         "Seend A",
         "Seend B",
@@ -539,7 +543,7 @@
         let homeGrandTotal = 0;
         let awayGrandTotal = 0;
     
-        // Home Team Calculations
+        // 1. Home Team Player & Leg Calculations
         let homeRows = document.querySelectorAll('#home-table .player-row');
         homeRows.forEach(row => {
           let playerTotal = 0;
@@ -562,7 +566,7 @@
           homeGrandTotal += playerTotal;
         });
     
-        // Away Team Calculations
+        // 2. Away Team Player & Leg Calculations
         let awayRows = document.querySelectorAll('#away-table .player-row');
         awayRows.forEach(row => {
           let playerTotal = 0;
@@ -585,7 +589,7 @@
           awayGrandTotal += playerTotal;
         });
     
-        // Update Leg Totals Row (Legs 1 to 5)
+        // 3. Update Row 1: TOTALS (Pin Sums per Leg 1 through 5)
         for (let leg = 1; leg <= 5; leg++) {
           let hLegElem = document.getElementById(`home-leg-${leg}`);
           let aLegElem = document.getElementById(`away-leg-${leg}`);
@@ -593,7 +597,7 @@
           if (aLegElem) aLegElem.innerText = awayLegTotals[leg - 1];
         }
     
-        // --- LEG RESULTS (I = Win, 1/2 = Draw, - = Loss) ---
+        // 4. Update Bottom Row: LEGS WON (Notation: I = Win, 1/2 = Draw, - = Loss)
         const divisionElem = document.getElementById('division-select');
         const divisionVal = divisionElem ? divisionElem.value : 'premier';
         const isCup = (divisionVal === 'cup');
@@ -609,32 +613,27 @@
           let aResElem = document.getElementById(`away-leg-res-${leg}`);
     
           if (hResElem && aResElem) {
-            if (isCup) {
+            if (isCup || (hScore === 0 && aScore === 0)) {
               hResElem.innerText = "-";
               aResElem.innerText = "-";
+            } else if (hScore > aScore) {
+              hResElem.innerText = "I";
+              aResElem.innerText = "-";
+              homeLegsWonSum += 1;
+            } else if (aScore > hScore) {
+              hResElem.innerText = "-";
+              aResElem.innerText = "I";
+              awayLegsWonSum += 1;
             } else {
-              if (hScore === 0 && aScore === 0) {
-                hResElem.innerText = "-";
-                aResElem.innerText = "-";
-              } else if (hScore > aScore) {
-                hResElem.innerText = "I";
-                aResElem.innerText = "-";
-                homeLegsWonSum += 1;
-              } else if (aScore > hScore) {
-                hResElem.innerText = "-";
-                aResElem.innerText = "I";
-                awayLegsWonSum += 1;
-              } else {
-                hResElem.innerText = "1/2";
-                aResElem.innerText = "1/2";
-                homeLegsWonSum += 0.5;
-                awayLegsWonSum += 0.5;
-              }
+              hResElem.innerText = "1/2";
+              aResElem.innerText = "1/2";
+              homeLegsWonSum += 0.5;
+              awayLegsWonSum += 0.5;
             }
           }
         }
     
-        // Calculate Bonus Points for Overall Pin Total Winner (+2 points)
+        // 5. Calculate Bonus Points for Overall Pin Total Winner (+2 points)
         let homeBonus = 0;
         let awayBonus = 0;
         if (homeGrandTotal > 0 || awayGrandTotal > 0) {
@@ -651,19 +650,19 @@
         let homeTotalPoints = isCup ? 0 : (homeLegsWonSum + homeBonus);
         let awayTotalPoints = isCup ? 0 : (awayLegsWonSum + awayBonus);
     
-        // Update Total Legs Won display & points
+        // Update Bottom Right Cell (Legs Won count & Match Points)
         let hLegsTotalElem = document.getElementById('home-legs-won-total');
         let aLegsTotalElem = document.getElementById('away-legs-won-total');
         if (hLegsTotalElem) hLegsTotalElem.innerText = isCup ? "-" : `${homeLegsWonSum} (${homeTotalPoints} pts)`;
         if (aLegsTotalElem) aLegsTotalElem.innerText = isCup ? "-" : `${awayLegsWonSum} (${awayTotalPoints} pts)`;
     
-        // Update Overall Pin Sums (Grand Total)
+        // Update Overall Pin Sums (Grand Total Pinfall on Row 1 far right)
         let hTotalSumElem = document.getElementById('home-total-sum');
         let aTotalSumElem = document.getElementById('away-total-sum');
         if (hTotalSumElem) hTotalSumElem.innerText = homeGrandTotal;
         if (aTotalSumElem) aTotalSumElem.innerText = awayGrandTotal;
     
-        // --- TOP BOXES: OVERALL PIN DIFFERENCE (UP) ---
+        // 6. TOP BOXES: OVERALL PIN DIFFERENCE (UP)
         let homeBox = document.getElementById('home-grand-total');
         let awayBox = document.getElementById('away-grand-total');
     
