@@ -1,0 +1,158 @@
+---
+layout: base
+title: Season Rates & Fines - Semington A Skittles Team
+---
+
+<style>
+  /* --- Main Container Centering --- */
+  .rates-card {
+    width: 1000px;
+    max-width: 1000px;
+    margin: 30px auto 50px auto;
+    background: #ffffff;
+    border: 3px solid #222222;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+  }
+
+  /* --- Top Filter Bar Styling --- */
+  .rates-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filter-group label {
+    font-size: 0.95rem;
+    color: #222222;
+  }
+
+  .rates-select {
+    padding: 6px 12px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #111111;
+    border: 2px solid #2b3a4a;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+  .rates-select:focus {
+    outline: none;
+    border-color: #0056b3;
+  }
+
+  /* --- Rates Table Styling --- */
+  .skittles-rates-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .skittles-rates-table th, 
+  .skittles-rates-table td {
+    padding: 12px 16px;
+    border: 1px solid #cccccc;
+  }
+
+  /* Dark header bar with crisp white text */
+  .skittles-rates-table th {
+    background-color: #2b3a4a;
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  /* Alternating row background for clean visual scanning */
+  .skittles-rates-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .skittles-rates-table tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  /* Align amounts to the right and highlight prices */
+  .skittles-rates-table .text-right {
+    text-align: right;
+  }
+
+  .skittles-rates-table .rate-amount {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000000;
+  }
+</style>
+
+<h2>Season Rates & Fines</h2>
+
+<!-- Filter Controls Container -->
+<div class="rates-filter-container">
+  <div class="filter-group">
+    <label for="seasonSelect"><strong>Select Season / Date Range:</strong></label>
+    <select id="seasonSelect" class="rates-select">
+      <option value="current">2026/2027 Season (Effective From 01/09/2026)</option>
+      <option value="2025-2026">2025/2026 Season (01/09/2025 – 31/08/2026)</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="matchTypeSelect"><strong>Match Type / Division:</strong></label>
+    <select id="matchTypeSelect" class="rates-select">
+      <option value="all">All Match Types</option>
+      <option value="Premier">Premier</option>
+      <option value="Division 1">Division 1</option>
+      <option value="Cup Match">Cup Match</option>
+    </select>
+  </div>
+</div>
+
+<!-- Rates Table Container -->
+<div class="rates-card">
+  <table class="skittles-rates-table">
+    <thead>
+      <tr>
+        <th>Fine / Rule Item</th>
+        <th>Effective Dates</th>
+        <th>Match Type</th>
+        <th class="text-right">Rate / Amount</th>
+      </tr>
+    </thead>
+    <tbody id="ratesTableBody">
+      <tr>
+        <td><strong>5 and Under</strong></td>
+        <td>01/09/2026 — Present</td>
+        <td>All Matches</td>
+        <td class="text-right rate-amount">£0.20</td>
+      </tr>
+      <tr>
+        <td><strong>Duck</strong></td>
+        <td>01/09/2026 — Present</td>
+        <td>All Matches</td>
+        <td class="text-right rate-amount">£0.50</td>
+      </tr>
+      <tr>
+        <td><strong>Spare</strong></td>
+        <td>01/09/2026 — Present</td>
+        <td>All Matches</td>
+        <td class="text-right rate-amount">£1.80</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
