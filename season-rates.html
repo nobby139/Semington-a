@@ -4,10 +4,10 @@ title: Season Rates & Fines - Semington A Skittles Team
 ---
 
 <style>
-  /* --- Main Container Centering --- */
+  /* Container Centering & Layout */
   .rates-card {
-    width: 1000px;
-    max-width: 1000px;
+    width: 1100px;
+    max-width: 1100px;
     margin: 30px auto 50px auto;
     background: #ffffff;
     border: 3px solid #222222;
@@ -17,100 +17,18 @@ title: Season Rates & Fines - Semington A Skittles Team
     box-sizing: border-box;
   }
 
-  /* --- Top Filter Bar Styling --- */
-  .rates-filter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 25px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-  }
-
-  .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .filter-group label {
-    font-size: 0.95rem;
-    color: #222222;
-  }
-
-  .rates-select {
-    padding: 6px 12px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    color: #111111;
-    border: 2px solid #2b3a4a;
-    border-radius: 4px;
-    background-color: #ffffff;
-    cursor: pointer;
-  }
-
-  .rates-select:focus {
-    outline: none;
-    border-color: #0056b3;
-  }
-
-  /* --- Rates Table Styling --- */
-  .skittles-rates-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  .skittles-rates-table th, 
-  .skittles-rates-table td {
-    padding: 12px 16px;
-    border: 1px solid #cccccc;
-  }
-
-  /* Dark header bar with crisp white text */
-  .skittles-rates-table th {
-    background-color: #2b3a4a;
-    color: #ffffff !important;
-    font-weight: bold;
-    font-size: 1rem;
-    text-align: left;
-  }
-
-  /* Alternating row background for clean visual scanning */
-  .skittles-rates-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  .skittles-rates-table tbody tr:hover {
-    background-color: #f1f5f9;
-  }
-
-  /* Align amounts to the right and highlight prices */
-  .skittles-rates-table .text-right {
-    text-align: right;
-  }
-
-  .skittles-rates-table .rate-amount {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #000000;
-  }
-
-  /* Rate Entry Box */
+  /* Admin Rate Entry Box */
   .rate-entry-box {
     background-color: #f1f5f9;
     border: 2px solid #2b3a4a;
     border-radius: 6px;
-    padding: 15px 20px;
+    padding: 18px 20px;
     margin-bottom: 25px;
   }
 
   .rate-entry-box h3 {
     margin-top: 0;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     font-size: 1.1rem;
     color: #2b3a4a;
     text-align: center;
@@ -121,7 +39,7 @@ title: Season Rates & Fines - Semington A Skittles Team
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 15px;
+    gap: 12px;
   }
 
   .form-group {
@@ -132,16 +50,17 @@ title: Season Rates & Fines - Semington A Skittles Team
 
   .form-group label {
     font-size: 0.85rem;
-    color: #333;
+    font-weight: bold;
+    color: #333333;
   }
 
   .rates-input {
     padding: 6px 10px;
     font-size: 0.95rem;
     font-weight: bold;
-    border: 1px solid #999;
+    border: 1px solid #999999;
     border-radius: 4px;
-    background: #fff;
+    background: #ffffff;
   }
 
   .btn-save-rate {
@@ -158,104 +77,270 @@ title: Season Rates & Fines - Semington A Skittles Team
   .btn-save-rate:hover {
     background-color: #1a2530;
   }
+
+  /* Filter Controls Bar */
+  .rates-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 12px 18px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+  }
+
+  .rates-select {
+    padding: 6px 12px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #111111;
+    border: 2px solid #2b3a4a;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+  /* Main Rates Table */
+  .skittles-rates-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .skittles-rates-table th, 
+  .skittles-rates-table td {
+    padding: 12px 15px;
+    border: 1px solid #cccccc;
+  }
+
+  .skittles-rates-table th {
+    background-color: #2b3a4a;
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .skittles-rates-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .skittles-rates-table tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .rate-amount {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .badge-match-type {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background-color: #e2e8f0;
+    color: #1e293b;
+  }
 </style>
 
 <h2>Season Rates & Fines</h2>
 
-
-
-<!-- Filter Controls Container -->
-<div class="rates-filter-container">
-  <div class="filter-group">
-    <label for="seasonSelect"><strong>Select Season / Date Range:</strong></label>
-    <select id="seasonSelect" class="rates-select">
-      <option value="current">2026/2027 Season (Effective From 01/09/2026)</option>
-      <option value="2025-2026">2025/2026 Season (01/09/2025 – 31/08/2026)</option>
-    </select>
-  </div>
-
-  <div class="filter-group">
-    <label for="matchTypeSelect"><strong>Match Type / Division:</strong></label>
-    <select id="matchTypeSelect" class="rates-select">
-      <option value="all">All Match Types</option>
-      <option value="Premier">Premier</option>
-      <option value="Division 1">Division 1</option>
-      <option value="Cup Match">Cup Match</option>
-    </select>
-  </div>
-</div>
-
-<!-- Admin Add / Edit Rate Form -->
-<div class="rate-entry-box">
-  <h3>Add / Update Season Rate</h3>
-  <form id="rateForm" class="rate-form">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="rateItem"><strong>Item / Fine Name:</strong></label>
-        <select id="rateItem" required class="rates-input">
-          <option value="5 and Under">5 and Under</option>
-          <option value="Duck">Duck</option>
-          <option value="Spare">Spare</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="rateAmount"><strong>Amount (£):</strong></label>
-        <input type="number" id="rateAmount" step="0.05" min="0" placeholder="0.20" required class="rates-input" style="width: 90px;">
-      </div>
-
-      <div class="form-group">
-        <label for="matchType"><strong>Match Type:</strong></label>
-        <select id="matchType" class="rates-input">
-          <option value="All">All Match Types</option>
-          <option value="Premier">Premier</option>
-          <option value="Division 1">Division 1</option>
-          <option value="Cup Match">Cup Match</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="effectiveFrom"><strong>Effective From Date:</strong></label>
-        <input type="date" id="effectiveFrom" required class="rates-input">
-      </div>
-
-      <div class="form-group btn-group">
-        <button type="submit" class="btn-save-rate">Save Rate Rule</button>
-      </div>
-    </div>
-  </form>
-</div>
-
-<!-- Rates Table Container -->
 <div class="rates-card">
+
+  <!-- Admin Add / Update Rate Form -->
+  <div class="rate-entry-box">
+    <h3>Update or Add Rate Rule</h3>
+    <form id="rateForm" class="rate-form">
+      <div class="form-row">
+        
+        <div class="form-group">
+          <label for="rateItem">Item / Fee Rule:</label>
+          <select id="rateItem" required class="rates-input">
+            <optgroup label="Ducks & Fines">
+              <option value="Duck Fine">Duck Fine</option>
+              <option value="Low Score Fine (< 5)">Low Score Fine (< 5)</option>
+              <option value="Low Score Fine (< 6)">Low Score Fine (< 6)</option>
+            </optgroup>
+            <optgroup label="Awards & Earnings">
+              <option value="Leg Won (Per Leg)">Leg Won (Per Leg)</option>
+              <option value="Top Score Award">Top Score Award</option>
+              <option value="Spare Earnings">Spare Earnings</option>
+              <option value="Spare Player Contribution">Spare Player Contribution</option>
+            </optgroup>
+            <optgroup label="Match & Leg Fees">
+              <option value="Match Fee">Match Fee</option>
+              <option value="Cup Fee (Home)">Cup Fee (Home)</option>
+              <option value="Cup Fee (Away)">Cup Fee (Away)</option>
+              <option value="Cup Fee (Home - Full Nom)">Cup Fee (Home - Full Nom)</option>
+              <option value="Cup Fee (Away - Full Nom)">Cup Fee (Away - Full Nom)</option>
+              <option value="Leg Fee (Per Player)">Leg Fee (Per Player)</option>
+              <option value="Sticker-Up Fee (Home Only)">Sticker-Up Fee (Home Only)</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="rateAmount">Amount (£):</label>
+          <input type="number" id="rateAmount" step="0.05" min="0" placeholder="0.20" required class="rates-input" style="width: 90px;">
+        </div>
+
+        <div class="form-group">
+          <label for="matchType">Match Type / League:</label>
+          <select id="matchType" class="rates-input">
+            <option value="All">All Match Types</option>
+            <option value="Premier">Premier</option>
+            <option value="Division 1">Division 1</option>
+            <option value="Cup Match">Cup Match</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="effectiveFrom">Effective From Date:</label>
+          <input type="date" id="effectiveFrom" required class="rates-input">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn-save-rate">Save Rate Rule</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <!-- Filter Dropdown Bar -->
+  <div class="rates-filter-container">
+    <div>
+      <label for="matchTypeFilter"><strong>Filter by Match Type:</strong> </label>
+      <select id="matchTypeFilter" class="rates-select" onchange="filterTable()">
+        <option value="All">All Match Types</option>
+        <option value="Premier">Premier League</option>
+        <option value="Division 1">Division 1</option>
+        <option value="Cup Match">Cup Matches</option>
+      </select>
+    </div>
+    <div style="font-size: 0.9rem; color: #555;">
+      <em>* Rules apply based on match date and competition context.</em>
+    </div>
+  </div>
+
+  <!-- Rates Table -->
   <table class="skittles-rates-table">
     <thead>
       <tr>
-        <th>Fine / Rule Item</th>
-        <th>Effective Dates</th>
-        <th>Match Type</th>
-        <th class="text-right">Rate / Amount</th>
+        <th>Rate Item / Rule</th>
+        <th>Applicable Match Type</th>
+        <th>Effective Date Range</th>
+        <th class="text-right">Amount</th>
       </tr>
     </thead>
     <tbody id="ratesTableBody">
-      <tr>
-        <td><strong>5 and Under</strong></td>
-        <td>01/09/2026 — Present</td>
-        <td>All Matches</td>
-        <td class="text-right rate-amount">£0.20</td>
-      </tr>
-      <tr>
-        <td><strong>Duck</strong></td>
-        <td>01/09/2026 — Present</td>
-        <td>All Matches</td>
-        <td class="text-right rate-amount">£0.50</td>
-      </tr>
-      <tr>
-        <td><strong>Spare</strong></td>
-        <td>01/09/2026 — Present</td>
-        <td>All Matches</td>
-        <td class="text-right rate-amount">£1.80</td>
-      </tr>
+      <!-- Data populated dynamically from Neon DB -->
     </tbody>
   </table>
+
 </div>
+
+<script>
+  let loadedRates = [];
+
+  // Default effective_from date input to today
+  document.getElementById('effectiveFrom').valueAsDate = new Date();
+
+  // Load rates from Python API backend (Neon DB)
+  async function loadRates() {
+    try {
+      const res = await fetch('/api/rates');
+      if (!res.ok) throw new Error('API fetch failed');
+      
+      loadedRates = await res.json();
+      renderRatesTable(loadedRates);
+    } catch (err) {
+      console.error('Failed to load rates from Neon DB:', err);
+      document.getElementById('ratesTableBody').innerHTML = `
+        <tr>
+          <td colspan="4" style="text-align: center; color: #c0392b; padding: 20px;">
+            Unable to connect to database. Please verify backend service is running.
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  // Render table rows
+  function renderRatesTable(ratesList) {
+    const tbody = document.getElementById('ratesTableBody');
+    tbody.innerHTML = '';
+
+    if (ratesList.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No rates found for this selection.</td></tr>`;
+      return;
+    }
+
+    ratesList.forEach(r => {
+      const row = document.createElement('tr');
+      const endDate = r.effective_to ? r.effective_to : 'Present';
+      
+      row.innerHTML = `
+        <td><strong>${r.rate_item}</strong></td>
+        <td><span class="badge-match-type">${r.match_type}</span></td>
+        <td>${r.effective_from} — ${endDate}</td>
+        <td class="text-right rate-amount">£${parseFloat(r.amount).toFixed(2)}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  // Filter table by match type
+  function filterTable() {
+    const selectedType = document.getElementById('matchTypeFilter').value;
+    if (selectedType === 'All') {
+      renderRatesTable(loadedRates);
+    } else {
+      const filtered = loadedRates.filter(r => r.match_type === 'All' || r.match_type === selectedType);
+      renderRatesTable(filtered);
+    }
+  }
+
+  // Handle Form Submission (Post new rate rule)
+  document.getElementById('rateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const payload = {
+      rate_item: document.getElementById('rateItem').value,
+      amount: parseFloat(document.getElementById('rateAmount').value),
+      match_type: document.getElementById('matchType').value,
+      effective_from: document.getElementById('effectiveFrom').value
+    };
+
+    try {
+      const res = await fetch('/api/rates/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const responseData = await res.json();
+
+      if (res.ok) {
+        alert('New rate successfully saved to database!');
+        loadRates(); // Refresh database table rows
+      } else {
+        alert('Failed to save rate: ' + (responseData.message || 'Unknown error'));
+      }
+    } catch (err) {
+      console.error('Save error:', err);
+      alert('Error submitting form. Check network connection.');
+    }
+  });
+
+  // Run on page load
+  loadRates();
+</script>
