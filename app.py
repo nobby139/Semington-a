@@ -1,17 +1,28 @@
+# ==========================================================================
+# IMPORTS & INITIALIZATION
+# ==========================================================================
 import os
 import psycopg2
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = "your_secret_key_here"  # Required for flash messages
 
+
+# ==========================================================================
+# DATABASE CONFIGURATION & CONNECTION
+# ==========================================================================
 def get_db_connection():
     """Connect to Neon DB using your connection string or environment variable."""
-    # Replace the string below with your actual Neon connection string if not using environment variables
     conn = psycopg2.connect(
         os.environ.get("DATABASE_URL", "postgresql://your_user:your_password@your_neon_host/your_dbname")
     )
     return conn
 
+
+# ==========================================================================
+# CORE WEBSITE & PAGE ROUTES
+# ==========================================================================
 @app.route('/')
 @app.route('/index')
 def home():
@@ -43,12 +54,14 @@ def gallery():
 def rules():
     return render_template('rules.html')
 
-# --- New Season Rates & Fines Page Route ---
+
+# ==========================================================================
+# SEASON RATES & FINES ROUTES
+# ==========================================================================
 @app.route('/season-rates')
 def season_rates():
     return render_template('season-rates.html')
 
-# --- Neon DB API Routes for Rates & Fines ---
 @app.route('/api/rates', methods=['GET'])
 def get_rates():
     conn = get_db_connection()
@@ -62,55 +75,79 @@ def get_rates():
     cur.close()
     conn.close()
     
-    rates = []
-    for r in rows:
-        rates.append({
-            'id': r[0],
-            'rate_item': r[1],
-            'amount': float(r[2]),
-            'match_type': r[3],
-            'effective_from': r[4].strftime('%Y-%m-%d') if r[4] else None,
-            'effective_to': r[5].strftime('%Y-%m-%d') if r[5] else None
-        })
-    return jsonify(rates)
+    rates_list = [{
+        "id": r[0], "rate_item": r[1], "amount": float(r[2]), 
+        "match_type": r[3], "effective_from": str(r[4]), "effective_to": str(r[5])
+    } for r in rows]
+    return jsonify(rates_list)
 
-@app.route('/api/rates/add', methods=['POST'])
-def add_rate():
-    data = request.json
-    rate_item = data.get('rate_item')
-    amount = data.get('amount')
-    match_type = data.get('match_type', 'All')
-    effective_from = data.get('effective_from')
 
+# ==========================================================================
+# TEAM & PLAYER MANAGEMENT ROUTES
+# ==========================================================================
+@app.route('/manage-teams', methods=['GET', 'POST'])
+def manage_teams():
     conn = get_db_connection()
     cur = conn.cursor()
-
-    try:
-        # Close off the previous active rate for this item and match type
-        cur.execute("""
-            UPDATE season_rates 
-            SET effective_to = %s 
-            WHERE rate_item = %s 
-              AND match_type = %s 
-              AND effective_to IS NULL;
-        """, (effective_from, rate_item, match_type))
-
-        # Insert the new rate rule
-        cur.execute("""
-            INSERT INTO season_rates (rate_item, amount, match_type, effective_from)
-            VALUES (%s, %s, %s, %s);
-        """, (rate_item, amount, match_type, effective_from))
-
-        conn.commit()
+    
+    if request.method == 'POST':
+        action = request.form.get('action')
+        
+        # Handle adding a new team
+        if action == 'add_team':
+            team_name = request.form.get('team_name')
+            division = request.form.get('division')
+            try:
+                cur.execute(
+                    "INSERT INTO teams (team_name, division) VALUES (%s, %s)",
+                    (team_name, division)
+                )
+                conn.commit()
+                flash(f"Team '{team_name}' added to {division} successfully!", "success")
+            except Exception as e:
+                conn.rollback()
+                flash(f"Error adding team: {e}", "danger")
+            
+        # Handle adding a new player to a team
+        elif action == 'add_player':
+            player_name = request.form.get('player_name')
+            team_id = request.form.get('team_id')
+            try:
+                cur.execute(
+                    "INSERT INTO players (player_name, team_id) VALUES (%s, %s)",
+                    (player_name, team_id)
+                )
+                conn.commit()
+                flash(f"Player '{player_name}' added to team successfully!", "success")
+            except Exception as e:
+                conn.rollback()
+                flash(f"Error adding player: {e}", "danger")
+            
         cur.close()
         conn.close()
-        return jsonify({'status': 'success', 'message': 'Rate saved successfully!'}), 200
+        return redirect(url_for('manage_teams'))
 
-    except Exception as e:
-        conn.rollback()
-        cur.close()
-        conn.close()
-        return jsonify({'status': 'error', 'message': str(e)}), 500
+    # Fetch existing teams for dropdown selection
+    cur.execute("SELECT id, team_name, division FROM teams ORDER BY division, team_name;")
+    teams = cur.fetchall()
+    
+    # Fetch existing players for roster overview table
+    cur.execute("""
+        SELECT p.id, p.player_name, t.team_name, t.division 
+        FROM players p 
+        JOIN teams t ON p.team_id = t.id 
+        ORDER BY t.division, t.team_name, p.player_name;
+    """)
+    players = cur.fetchall()
+    
+    cur.close()
+    conn.close()
+    
+    return render_template('manage_teams.html', teams=teams, players=players)
 
+
+# ==========================================================================
+# APPLICATION EXECUTION ENTRY POINT
+# ==========================================================================
 if __name__ == '__main__':
     app.run(debug=True)
