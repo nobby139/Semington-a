@@ -1,0 +1,49 @@
+---
+layout: base
+title: Home - Semington Skittles & Transport Hub
+---
+
+<style>
+  /* Center the main container block on the index page */
+  main {
+    width: 1000px !important;
+    max-width: 1000px !important;
+    margin: 40px auto !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Center headings and intro text */
+  main h2, main p {
+    text-align: center !important;
+  }
+
+  /* Style for quick-action management button */
+  .manage-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: background-color 0.2s ease;
+  }
+
+  .manage-btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<div class="filter-container">
+  <h2>Welcome to Semington A Skittles Team</h2>
+</div>
+
+<div id="status">
+  <p>Use the navigation menu above to access scoreboards, fixtures, and league rules.</p>
+  
+  <!-- Quick link to your new team & player management page -->
+  <a href="{{ url_for('manage_teams') }}" class="manage-btn">Manage Divisions, Teams & Players</a>
+</div>
