@@ -1,6 +1,8 @@
-{% extends "base.html" %}
+---
+layout: base
+title: Gallery - Semington A Skittles Team
+---
 
-{% block content %}
 <div style="max-width: 1300px; margin: 30px auto; padding: 20px; font-family: Arial, sans-serif;">
     
     <!-- Section Title -->
@@ -14,17 +16,17 @@
         <div style="flex: 3; min-width: 320px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px;">
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
                 
-                {% if gallery_items %}
-                    {% for item in gallery_items %}
+                {% if site.gallery_items %}
+                    {% for item in site.gallery_items %}
                     <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                         <div style="height: 160px; background-color: #0f172a; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                             {% if item.type == 'video' %}
                             <video controls style="width: 100%; height: 100%; object-fit: cover;">
-                                <source src="{{ url_for('static', filename='images/' + item.filename) }}" type="video/mp4">
+                                <source src="{{ ('images/' | append: item.filename) | relative_url }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                             {% else %}
-                            <img src="{{ url_for('static', filename='images/' + item.filename) }}" alt="{{ item.caption }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="{{ ('images/' | append: item.filename) | relative_url }}" alt="{{ item.caption }}" style="width: 100%; height: 100%; object-fit: cover;">
                             {% endif %}
                         </div>
                         <div style="padding: 10px; font-size: 0.85rem; color: #334155; text-align: center; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -89,29 +91,3 @@
 
     </div>
 </div>
-
-
-        <!-- Right Side: Google Drive Upload Card -->
-        <div style="flex: 1; min-width: 280px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 30px; text-align: center; border-top: 4px solid #1e293b;">
-            <h2 style="color: #1e293b; margin-top: 0; font-size: 1.4rem;">
-                Add Photos & Videos
-            </h2>
-            
-            <p style="color: #475569; font-size: 0.95rem; line-height: 1.6; margin: 20px 0;">
-                Players and supporters can upload photos and videos to the Semington A Skittles Team Google Drive gallery.
-            </p>
-
-            <div style="margin: 25px 0;">
-                <a href="YOUR_GOOGLE_DRIVE_FOLDER_URL" target="_blank" style="display: block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 12px 18px; border-radius: 6px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);">
-                    Upload to the Team Gallery Folder
-                </a>
-            </div>
-
-            <p style="color: #64748b; font-size: 0.8rem; font-style: italic; margin-bottom: 0;">
-                Photos appear automatically below once uploaded.
-            </p>
-        </div>
-
-    </div>
-</div>
-{% endblock %}
