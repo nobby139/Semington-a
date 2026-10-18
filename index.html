@@ -2,9 +2,7 @@
 layout: base
 title: Home - Semington A Skittles Team
 ---
-
 <style>
-  /* Ensure the main element spans the layout width */
   main {
     width: 100% !important;
     max-width: 1500px !important;
@@ -14,8 +12,6 @@ title: Home - Semington A Skittles Team
     display: flex;
     justify-content: center;
   }
-
-  /* Full 1500px flex container */
   .centered-home-container {
     display: flex;
     flex-direction: column;
@@ -28,7 +24,6 @@ title: Home - Semington A Skittles Team
     box-sizing: border-box;
     padding: 0 20px;
   }
-
   .centered-home-container h2 {
     color: #333;
     font-size: 2.2rem;
@@ -36,7 +31,6 @@ title: Home - Semington A Skittles Team
     text-align: center;
     width: 100%;
   }
-
   .centered-home-container p {
     color: #555;
     font-size: 1.1rem;
@@ -44,8 +38,6 @@ title: Home - Semington A Skittles Team
     text-align: center;
     width: 100%;
   }
-
-  /* Clipart image styling */
   .home-clipart {
     max-width: 550px;
     width: 100%;
@@ -54,11 +46,8 @@ title: Home - Semington A Skittles Team
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 </style>
-
 <div class="centered-home-container">
   <h2>Welcome to Semington A Skittles Team</h2>
   <p>Use the navigation menu above to access scoreboards, fixtures, and league rules.</p>
-  
-  <!-- Centered Clipart Image -->
   <img src="{{ 'assets/Skittles Clipart 2.jpg' | relative_url }}" alt="Skittles Clipart" class="home-clipart">
 </div>
