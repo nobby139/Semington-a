@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Fixtures & Results - Semington A Skittles Team{% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center; margin-bottom: 20px;">Fixtures & Results</h1>
+
+<!-- Year Dropdown Filter Restored -->
+<div class="filter-container">
+  <label for="yearSelect">Select Year: </label>
+  <select id="yearSelect">
+    <option value="2026">2026</option>
+    <option value="2025">2025</option>
+  </select>
+</div>
+
+<div id="status">Loading data...</div>
+
+<table id="fixturesTable">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Match</th>
+      <th>Score/Points</th>
+      <th>Venue</th>
+      <th>Alley</th>
+      <th>Competition</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- Rows dynamically loaded from Neon DB -->
+  </tbody>
+</table>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='fixtures.js') }}"></script>
+{% endblock %}
