@@ -1,39 +1,16 @@
-// Replace with your exact connection host and connection string from Neon
-const NEON_HOST = "ep-patient-cloud-21452490.eu-central-1.aws.neon.tech"; 
-const NEON_API_KEY = "YOUR_NEON_CONNECTION_STRING_HERE";
-
 async function fetchFixturesFromNeon(season) {
   const status = document.getElementById("status");
   const tbody = document.getElementById("tableBody");
   
   if (!status || !tbody) return;
 
-  // Split season dropdown value (e.g., "2025-2026")
-  const [startYear, endYear] = season.split("-");
-  const startDate = `${startYear}-08-01`;
-  const endDate = `${endYear}-05-31`;
-
   status.textContent = "Loading fixtures from database...";
 
   try {
-    const response = await fetch(`https://${NEON_HOST}/sql`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${NEON_API_KEY}`
-      },
-      body: JSON.stringify({
-        query: `
-          SELECT * FROM fixtures 
-          WHERE match_date >= $1 AND match_date <= $2 
-          ORDER BY match_date ASC
-        `,
-        params: [startDate, endDate]
-      })
-    });
-
-    const data = await response.json();
-    const rows = data.rows || [];
+    const response = await fetch(`/api/fixtures?season=${season}`);
+    if (!response.ok) throw new Error('API fetch failed');
+    
+    const rows = await response.json();
 
     if (rows.length === 0) {
       tbody.innerHTML = `<tr><td colspan="7">No fixtures found for season ${season}.</td></tr>`;
@@ -74,7 +51,9 @@ async function fetchFixturesFromNeon(season) {
 }
 
 function filterBySeason() {
-  const selectedSeason = document.getElementById("seasonSelect").value;
+  const seasonSelect = document.getElementById("seasonSelect");
+  if (!seasonSelect) return;
+  const selectedSeason = seasonSelect.value;
   fetchFixturesFromNeon(selectedSeason);
 }
 

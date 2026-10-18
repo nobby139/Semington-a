@@ -1,346 +1,308 @@
----
-layout: base
-title: Season Rates & Fines - Semington A Skittles Team
----
+{% extends "base.html" %}
 
-<style>
-  /* Container Centering & Layout */
-  .rates-card {
-    width: 1100px;
-    max-width: 1100px;
-    margin: 30px auto 50px auto;
-    background: #ffffff;
-    border: 3px solid #222222;
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    box-sizing: border-box;
-  }
+{% block content %}
 
-  /* Admin Rate Entry Box */
-  .rate-entry-box {
-    background-color: #f1f5f9;
-    border: 2px solid #2b3a4a;
-    border-radius: 6px;
-    padding: 18px 20px;
-    margin-bottom: 25px;
-  }
+<h1 style="text-align: center; margin-bottom: 20px;">Fees & Fines</h1>
 
-  .rate-entry-box h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    color: #2b3a4a;
-    text-align: center;
-  }
-
-  .rate-form .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .form-group label {
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: #333333;
-  }
-
-  .rates-input {
-    padding: 6px 10px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    border: 1px solid #999999;
-    border-radius: 4px;
-    background: #ffffff;
-  }
-
-  .btn-save-rate {
-    background-color: #2b3a4a;
-    color: #ffffff;
-    font-weight: bold;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-
-  .btn-save-rate:hover {
-    background-color: #1a2530;
-  }
-
-  /* Filter Controls Bar */
-  .rates-filter-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 12px 18px;
-    background-color: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-  }
-
-  .rates-select {
-    padding: 6px 12px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    color: #111111;
-    border: 2px solid #2b3a4a;
-    border-radius: 4px;
-    background-color: #ffffff;
-    cursor: pointer;
-  }
-
-  /* Main Rates Table */
-  .skittles-rates-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  .skittles-rates-table th, 
-  .skittles-rates-table td {
-    padding: 12px 15px;
-    border: 1px solid #cccccc;
-  }
-
-  .skittles-rates-table th {
-    background-color: #2b3a4a;
-    color: #ffffff !important;
-    font-weight: bold;
-    font-size: 0.95rem;
-    text-align: left;
-  }
-
-  .skittles-rates-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  .skittles-rates-table tbody tr:hover {
-    background-color: #f1f5f9;
-  }
-
-  .text-right {
-    text-align: right;
-  }
-
-  .rate-amount {
-    font-size: 1.05rem;
-    font-weight: bold;
-    color: #000000;
-  }
-
-  .badge-match-type {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    background-color: #e2e8f0;
-    color: #1e293b;
-  }
-</style>
-
-<h2>Season Rates & Fines</h2>
-
-<div class="rates-card">
-
-  <!-- Admin Add / Update Rate Form -->
-  <div class="rate-entry-box">
-    <h3>Update or Add Rate Rule</h3>
-    <form id="rateForm" class="rate-form">
-      <div class="form-row">
-        
-        <div class="form-group">
-          <label for="rateItem">Item / Fee Rule:</label>
-          <select id="rateItem" required class="rates-input">
-            <optgroup label="Ducks & Fines">
-              <option value="Duck Fine">Duck Fine</option>
-              <option value="Low Score Fine (< 5)">Low Score Fine (< 5)</option>
-              <option value="Low Score Fine (< 6)">Low Score Fine (< 6)</option>
-            </optgroup>
-            <optgroup label="Awards & Earnings">
-              <option value="Leg Won (Per Leg)">Leg Won (Per Leg)</option>
-              <option value="Top Score Award">Top Score Award</option>
-              <option value="Spare Earnings">Spare Earnings</option>
-              <option value="Spare Player Contribution">Spare Player Contribution</option>
-            </optgroup>
-            <optgroup label="Match & Leg Fees">
-              <option value="Match Fee">Match Fee</option>
-              <option value="Cup Fee (Home)">Cup Fee (Home)</option>
-              <option value="Cup Fee (Away)">Cup Fee (Away)</option>
-              <option value="Cup Fee (Home - Full Nom)">Cup Fee (Home - Full Nom)</option>
-              <option value="Cup Fee (Away - Full Nom)">Cup Fee (Away - Full Nom)</option>
-              <option value="Leg Fee (Per Player)">Leg Fee (Per Player)</option>
-              <option value="Sticker-Up Fee (Home Only)">Sticker-Up Fee (Home Only)</option>
-            </optgroup>
-          </select>
+<div class="rates-card" style="width: 1100px; max-width: 95%; margin: 20px auto; background: #ffffff; border: 3px solid #222222; border-radius: 8px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+    <div class="category-bar" style="display: flex; justify-content: space-between; align-items: center; background-color: #2b3a4a; color: #ffffff; padding: 15px 20px; border-radius: 6px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+        <h3 id="viewHeaderTitle" style="margin: 0; font-size: 1.25rem;">Season Rates — Premier League</h3>
+        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+            <div>
+                <span style="font-weight: bold; margin-right: 8px;">Effective From:</span>
+                {% if is_admin %}
+                    <!-- ADMIN EDITABLE DATE PICKER -->
+                    <input type="date" id="effectiveFromDate" class="category-select" style="padding: 7px 10px; border-radius: 4px; border: none; font-weight: bold; color: #2b3a4a;">
+                {% else %}
+                    <!-- VIEWER READ-ONLY DATE DISPLAY -->
+                    <span id="effectiveDateDisplay" style="background: #ffffff; color: #2b3a4a; padding: 6px 12px; border-radius: 4px; font-weight: bold;">Loading...</span>
+                {% endif %}
+            </div>
+            <div>
+                <label for="competitionView" style="font-weight: bold; margin-right: 8px;">Select Competition View:</label>
+                <select id="competitionView" class="category-select" onchange="switchView()" style="padding: 8px 14px; font-size: 1rem; font-weight: bold; color: #2b3a4a; border-radius: 4px; background-color: #ffffff; cursor: pointer;">
+                    <option value="Premier" selected>Premier League</option>
+                    <option value="Division 1">Division 1</option>
+                    <option value="Cup Match">Cup Matches</option>
+                </select>
+            </div>
         </div>
+    </div>
+    
+    {% if is_admin %}
+    <form id="bulkRatesForm">
+    {% endif %}
+        <div class="group-title" style="background-color: #f1f5f9; color: #2b3a4a; padding: 10px 15px; font-size: 1.1rem; font-weight: bold; border-left: 5px solid #2b3a4a; margin-top: 25px; margin-bottom: 10px;">Season Rates, Fines & Fees</div>
+        <table class="rates-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #ffffff;">
+            <thead>
+                <tr style="background-color: #34495e; color: #ffffff;">
+                    <th style="padding: 12px; border: 1px solid #cccccc; text-align: left;">Rate Item / Rule</th>
+                    <th style="padding: 12px; border: 1px solid #cccccc; text-align: left;">Applicable Competition</th>
+                    <th style="padding: 12px; border: 1px solid #cccccc; text-align: right; width: 150px;">Amount (£)</th>
+                </tr>
+            </thead>
+            <tbody id="ratesTableBody">
+                <!-- Rows will be dynamically built here on load -->
+            </tbody>
+        </table>
 
-        <div class="form-group">
-          <label for="rateAmount">Amount (£):</label>
-          <input type="number" id="rateAmount" step="0.05" min="0" placeholder="0.20" required class="rates-input" style="width: 90px;">
+        {% if is_admin %}
+        <div class="footer-actions" style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <button type="submit" class="btn-save-all" style="background-color: #27ae60; color: #ffffff; font-size: 1rem; font-weight: bold; padding: 12px 25px; border: none; border-radius: 4px; cursor: pointer;">Save All Rates</button>
         </div>
-
-        <div class="form-group">
-          <label for="matchType">Match Type / League:</label>
-          <select id="matchType" class="rates-input">
-            <option value="All">All Match Types</option>
-            <option value="Premier">Premier</option>
-            <option value="Division 1">Division 1</option>
-            <option value="Cup Match">Cup Match</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="effectiveFrom">Effective From Date:</label>
-          <input type="date" id="effectiveFrom" required class="rates-input">
-        </div>
-
-        <div class="form-group">
-          <button type="submit" class="btn-save-rate">Save Rate Rule</button>
-        </div>
-
-      </div>
+        {% endif %}
+    {% if is_admin %}
     </form>
-  </div>
-
-  <!-- Filter Dropdown Bar -->
-  <div class="rates-filter-container">
-    <div>
-      <label for="matchTypeFilter"><strong>Filter by Match Type:</strong> </label>
-      <select id="matchTypeFilter" class="rates-select" onchange="filterTable()">
-        <option value="All">All Match Types</option>
-        <option value="Premier">Premier League</option>
-        <option value="Division 1">Division 1</option>
-        <option value="Cup Match">Cup Matches</option>
-      </select>
-    </div>
-    <div style="font-size: 0.9rem; color: #555;">
-      <em>* Rules apply based on match date and competition context.</em>
-    </div>
-  </div>
-
-  <!-- Rates Table -->
-  <table class="skittles-rates-table">
-    <thead>
-      <tr>
-        <th>Rate Item / Rule</th>
-        <th>Applicable Match Type</th>
-        <th>Effective Date Range</th>
-        <th class="text-right">Amount</th>
-      </tr>
-    </thead>
-    <tbody id="ratesTableBody">
-      <!-- Data populated dynamically from Neon DB -->
-    </tbody>
-  </table>
-
+    {% endif %}
 </div>
 
 <script>
-  let loadedRates = [];
+    const isAdmin = {{ 'true' if is_admin else 'false' }};
+    const standardItems = [
+        "Duck Fine", 
+        "Low Score Fine", 
+        "Leg Won (Per Leg)", "Top Score Award", "Spare Earnings", "Spare Player Contribution",
+        "Match Fee", "Cup Fee (Home)", "Cup Fee (Away)", 
+        "Cup Fee (Home - Full Nom)", "Cup Fee (Away - Full Nom)", 
+        "Leg Fee (Per Player)", "Sticker-Up Fee (Home Only)"
+    ];
 
-  // Default effective_from date input to today
-  document.getElementById('effectiveFrom').valueAsDate = new Date();
+    let serverRates = {};
+    let serverEffectiveDates = {};
+    let selectedThresholds = {}; 
+    let tempInputAmounts = {};   
 
-  // Load rates from Python API backend (Neon DB)
-  async function loadRates() {
-    try {
-      const res = await fetch('/api/rates');
-      if (!res.ok) throw new Error('API fetch failed');
-      
-      loadedRates = await res.json();
-      renderRatesTable(loadedRates);
-    } catch (err) {
-      console.error('Failed to load rates from Neon DB:', err);
-      document.getElementById('ratesTableBody').innerHTML = `
-        <tr>
-          <td colspan="4" style="text-align: center; color: #c0392b; padding: 20px;">
-            Unable to connect to database. Please verify backend service is running.
-          </td>
-        </tr>
-      `;
-    }
-  }
-
-  // Render table rows
-  function renderRatesTable(ratesList) {
-    const tbody = document.getElementById('ratesTableBody');
-    tbody.innerHTML = '';
-
-    if (ratesList.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No rates found for this selection.</td></tr>`;
-      return;
+    // Helper function to format YYYY-MM-DD to DD-MM-YYYY for UK viewers
+    function formatDateUK(dateStr) {
+        if (!dateStr || dateStr === 'Not Set') return 'Not Set';
+        const parts = dateStr.split('-');
+        if (parts.length === 3) {
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+        return dateStr;
     }
 
-    ratesList.forEach(r => {
-      const row = document.createElement('tr');
-      const endDate = r.effective_to ? r.effective_to : 'Present';
-      
-      row.innerHTML = `
-        <td><strong>${r.rate_item}</strong></td>
-        <td><span class="badge-match-type">${r.match_type}</span></td>
-        <td>${r.effective_from} — ${endDate}</td>
-        <td class="text-right rate-amount">£${parseFloat(r.amount).toFixed(2)}</td>
-      `;
-      tbody.appendChild(row);
+    async function loadRatesData() {
+        try {
+            const res = await fetch('/api/rates');
+            if (res.ok) {
+                const list = await res.json();
+                serverRates = {};
+                serverEffectiveDates = {};
+                list.forEach(r => {
+                    serverRates[r.match_type + '|' + r.rate_item] = r.amount;
+                    if (r.effective_from) {
+                        serverEffectiveDates[r.match_type] = r.effective_from;
+                    }
+                });
+            }
+        } catch (e) {
+            console.log('Could not fetch rates from API, using defaults.');
+        }
+
+        // Initialize default threshold for Admin dropdown based on what exists in DB
+        ['Premier', 'Division 1', 'Cup Match'].forEach(comp => {
+            if (!selectedThresholds[comp]) {
+                const val5 = serverRates[comp + '|Low Score Fine (< 5)'];
+                const val6 = serverRates[comp + '|Low Score Fine (< 6)'];
+                if (val6 !== undefined && val6 !== null && val6 > 0 && (val5 === undefined || val5 === null || val5 === 0)) {
+                    selectedThresholds[comp] = "< 6";
+                } else {
+                    selectedThresholds[comp] = "< 5";
+                }
+            }
+        });
+
+        renderTable();
+    }
+
+    function renderTable() {
+        const comp = document.getElementById('competitionView').value;
+        const titleMap = {
+            'Premier': 'Premier League',
+            'Division 1': 'Division 1',
+            'Cup Match': 'Cup Matches'
+        };
+
+        document.getElementById('viewHeaderTitle').innerText = 'Season Rates — ' + titleMap[comp];
+        
+        // Update Effective From date with UK formatting (DD-MM-YYYY) for viewers
+        const rawDate = serverEffectiveDates[comp];
+        const effDateFormatted = formatDateUK(rawDate);
+
+        if (isAdmin) {
+            const effInput = document.getElementById('effectiveFromDate');
+            if (effInput && rawDate) {
+                effInput.value = rawDate; // HTML date inputs require YYYY-MM-DD
+            }
+        } else {
+            const effDisplay = document.getElementById('effectiveDateDisplay');
+            if (effDisplay) {
+                effDisplay.innerText = effDateFormatted;
+            }
+        }
+        
+        const tbody = document.getElementById('ratesTableBody');
+        tbody.innerHTML = '';
+
+        let itemsToDisplay = standardItems.filter(item => {
+            const isCupItem = item.toLowerCase().includes('cup');
+            if (comp === 'Cup Match') {
+                return isCupItem;
+            } else {
+                return !isCupItem;
+            }
+        });
+
+        itemsToDisplay.forEach(item => {
+            const tr = document.createElement('tr');
+
+            if (item === "Low Score Fine") {
+                if (isAdmin) {
+                    // Admin dropdown view
+                    const activeThreshold = selectedThresholds[comp] || "< 5";
+                    let dbVal = tempInputAmounts[comp + '|' + activeThreshold];
+                    if (dbVal === undefined) {
+                        dbVal = activeThreshold === "< 6" ? serverRates[comp + '|Low Score Fine (< 6)'] : serverRates[comp + '|Low Score Fine (< 5)'];
+                    }
+                    const valNum = (dbVal !== undefined && dbVal !== null && dbVal !== "") ? Number(dbVal).toFixed(2) : "";
+
+                    tr.innerHTML = `
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <strong>Low Score Fine:</strong>
+                                <select id="lowScoreThreshold" class="category-select" onchange="onThresholdChange(this)" style="padding: 4px 8px; font-size: 0.9rem; border: 1px solid #999; border-radius: 4px; color: #2b3a4a; background-color: #fff;">
+                                    <option value="< 5" ${activeThreshold === "< 5" ? "selected" : ""}>Under 5 (&lt; 5)</option>
+                                    <option value="< 6" ${activeThreshold === "< 6" ? "selected" : ""}>Under 6 (&lt; 6)</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td><span class="comp-badge" style="background:#e2e8f0; color:#1e293b; padding:3px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem;">${comp}</span></td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-flex; align-items: center; border: 1px solid #999999; border-radius: 4px; background: #fff; padding: 3px 8px; width: 90px;">
+                                <span style="color: #333; font-weight: bold; margin-right: 4px;">£</span>
+                                <input type="number" step="0.05" min="0" class="rate-amount-input" data-item="Low Score Fine" value="${valNum}" oninput="onAmountInput(this)" style="border: none; outline: none; width: 100%; font-weight: bold; font-size: 1rem; text-align: right; background: transparent;">
+                            </div>
+                        </td>
+                    `;
+                } else {
+                    // Viewer view: Dynamically check which one actually exists in the database
+                    const val5 = serverRates[comp + '|Low Score Fine (< 5)'];
+                    const val6 = serverRates[comp + '|Low Score Fine (< 6)'];
+                    
+                    let viewerThreshold = "< 5";
+                    let viewerVal = val5;
+                    
+                    // If < 6 has a valid value and < 5 is missing/zero, display Under 6
+                    if (val6 !== undefined && val6 !== null && val6 > 0 && (val5 === undefined || val5 === null || val5 === 0)) {
+                        viewerThreshold = "< 6";
+                        viewerVal = val6;
+                    } else if (val6 !== undefined && val6 !== null && val6 > 0 && selectedThresholds[comp] === "< 6") {
+                        viewerThreshold = "< 6";
+                        viewerVal = val6;
+                    }
+
+                    const viewerValStr = (viewerVal !== undefined && viewerVal !== null && viewerVal > 0) ? `£${Number(viewerVal).toFixed(2)}` : "—";
+
+                    tr.innerHTML = `
+                        <td><strong>Low Score Fine (${viewerThreshold})</strong></td>
+                        <td><span class="comp-badge" style="background:#e2e8f0; color:#1e293b; padding:3px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem;">${comp}</span></td>
+                        <td style="text-align: right; font-weight: bold; color: #2b3a4a;">${viewerValStr}</td>
+                    `;
+                }
+            } else {
+                const key = comp + '|' + item;
+                const dbVal = serverRates[key];
+                const valStr = (dbVal !== undefined && dbVal !== null && dbVal > 0) ? `£${dbVal.toFixed(2)}` : "—";
+
+                if (isAdmin) {
+                    const valNum = (dbVal !== undefined && dbVal !== null && dbVal > 0) ? dbVal.toFixed(2) : "";
+                    tr.innerHTML = `
+                        <td><strong>${item}</strong></td>
+                        <td><span class="comp-badge" style="background:#e2e8f0; color:#1e293b; padding:3px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem;">${comp}</span></td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-flex; align-items: center; border: 1px solid #999999; border-radius: 4px; background: #fff; padding: 3px 8px; width: 90px;">
+                                <span style="color: #333; font-weight: bold; margin-right: 4px;">£</span>
+                                <input type="number" step="0.05" min="0" class="rate-amount-input" data-item="${item}" value="${valNum}" style="border: none; outline: none; width: 100%; font-weight: bold; font-size: 1rem; text-align: right; background: transparent;">
+                            </div>
+                        </td>
+                    `;
+                } else {
+                    tr.innerHTML = `
+                        <td><strong>${item}</strong></td>
+                        <td><span class="comp-badge" style="background:#e2e8f0; color:#1e293b; padding:3px 8px; border-radius:12px; font-weight:bold; font-size:0.8rem;">${comp}</span></td>
+                        <td style="text-align: right; font-weight: bold; color: #2b3a4a;">${valStr}</td>
+                    `;
+                }
+            }
+            tbody.appendChild(tr);
+        });
+    }
+
+    function switchView() {
+        renderTable();
+    }
+
+    function onThresholdChange(selectElement) {
+        const comp = document.getElementById('competitionView').value;
+        selectedThresholds[comp] = selectElement.value; 
+        renderTable();
+    }
+
+    function onAmountInput(inputElement) {
+        const comp = document.getElementById('competitionView').value;
+        const threshold = selectedThresholds[comp] || "< 5";
+        tempInputAmounts[comp + '|' + threshold] = inputElement.value; 
+    }
+
+    {% if is_admin %}
+    document.getElementById('bulkRatesForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const comp = document.getElementById('competitionView').value;
+        const effectiveFrom = document.getElementById('effectiveFromDate').value;
+        const thresholdSelect = document.getElementById('lowScoreThreshold');
+        const selectedThreshold = thresholdSelect ? thresholdSelect.value : "< 5";
+        
+        const payload = [];
+
+        document.querySelectorAll('.rate-amount-input').forEach(input => {
+            let itemName = input.getAttribute('data-item');
+            if (itemName === "Low Score Fine") {
+                itemName = `Low Score Fine (${selectedThreshold})`;
+            }
+
+            payload.push({
+                rate_item: itemName,
+                amount: parseFloat(input.value) || 0,
+                match_type: comp
+            });
+        });
+
+        try {
+            const res = await fetch('/api/rates/save-all', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    match_type: comp, 
+                    effective_from: effectiveFrom || null, 
+                    rates: payload 
+                })
+            });
+
+            if (res.ok) {
+                alert('Rates for ' + comp + ' saved successfully!');
+                tempInputAmounts = {}; 
+                loadRatesData();
+            } else {
+                alert('Error saving rates.');
+            }
+        } catch (err) {
+            alert('Connection error.');
+        }
     });
-  }
+    {% endif %}
 
-  // Filter table by match type
-  function filterTable() {
-    const selectedType = document.getElementById('matchTypeFilter').value;
-    if (selectedType === 'All') {
-      renderRatesTable(loadedRates);
-    } else {
-      const filtered = loadedRates.filter(r => r.match_type === 'All' || r.match_type === selectedType);
-      renderRatesTable(filtered);
-    }
-  }
-
-  // Handle Form Submission (Post new rate rule)
-  document.getElementById('rateForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const payload = {
-      rate_item: document.getElementById('rateItem').value,
-      amount: parseFloat(document.getElementById('rateAmount').value),
-      match_type: document.getElementById('matchType').value,
-      effective_from: document.getElementById('effectiveFrom').value
-    };
-
-    try {
-      const res = await fetch('/api/rates/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const responseData = await res.json();
-
-      if (res.ok) {
-        alert('New rate successfully saved to database!');
-        loadRates(); // Refresh database table rows
-      } else {
-        alert('Failed to save rate: ' + (responseData.message || 'Unknown error'));
-      }
-    } catch (err) {
-      console.error('Save error:', err);
-      alert('Error submitting form. Check network connection.');
-    }
-  });
-
-  // Run on page load
-  loadRates();
+    loadRatesData();
 </script>
+
+{% endblock %}

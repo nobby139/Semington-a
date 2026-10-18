@@ -1,8 +1,8 @@
----
-layout: base
-title: Scoreboard - Semington A Skittles Team
----
+{% extends "base.html" %}
 
+{% block title %}Scoreboard - Semington A Skittles Team{% endblock %}
+
+{% block extra_css %}
 <style>
   /* 1. Force the parent main container to expand past 1500px so it has room */
   main {
@@ -38,15 +38,10 @@ title: Scoreboard - Semington A Skittles Team
     margin-bottom: 20px;
     border-bottom: 2px solid #222;
     gap: 15px;
+    text-align: center;
   }
 
   /* Forces the table column header row to have black font */
-  .skittles-table th {
-    color: #000 !important;
-    font-weight: bold !important;
-  }
-
-  /* 1. Center the numbers and text in all table header cells */
   .skittles-table th {
     text-align: center !important;
     color: #000 !important;
@@ -58,23 +53,17 @@ title: Scoreboard - Semington A Skittles Team
   .skittles-table td:first-child {
     text-align: left !important;
     padding-left: 10px;
+    min-width: 130px;
+    width: 150px;
   }
 
-  /* 2. Fix the dark/blended team header font color so it's crisp and bright white */
+  /* Fix the dark/blended team header font color so it's crisp and bright white */
   .skittles-table th.team-header {
     background-color: #2b3a4a !important;
     color: #ffffff !important;
     text-align: center !important;
     font-size: 1.1rem;
     font-weight: bold;
-  }
-
-  /* 3. Center the top team control areas and venue/division labels */
-  .venue-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
   }
 
   .team-control-box, .central-meta-box {
@@ -114,18 +103,19 @@ title: Scoreboard - Semington A Skittles Team
     padding: 4px !important;
     text-align: center;
     vertical-align: middle;
+    border: 1px solid #333;
   }
 
   /* Make score inputs fill almost the whole cell, leaving a subtle gap around the edges */
   .score-input {
-    width: 100% !important;
-    max-width: 55px !important;
-    height: 35px !important;
+    width: 48px !important;
+    height: 34px !important;
     margin: 0 auto !important;
     display: block !important;
     font-size: 1.1rem;
     font-weight: bold;
     text-align: center;
+    padding: 0 2px;
     border: 1px solid #999;
     border-radius: 4px;
     box-sizing: border-box;
@@ -133,11 +123,12 @@ title: Scoreboard - Semington A Skittles Team
 
   /* Keep spare boxes sized identically so they match the regular score inputs */
   .score-input.spare-box {
-    width: 100% !important;
-    max-width: 55px !important;
-    height: 35px !important;
+    width: 48px !important;
+    height: 34px !important;
     background-color: #fffde7;
     border: 2px solid #000 !important;
+    box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px #000;
+    font-weight: bold;
     box-sizing: border-box;
   }
   
@@ -187,7 +178,7 @@ title: Scoreboard - Semington A Skittles Team
 
   .team-column {
     flex: 1;
-    min-width: 380px; /* Reduced to fit both columns comfortably */
+    min-width: 380px;
   }
 
   .skittles-table {
@@ -196,22 +187,12 @@ title: Scoreboard - Semington A Skittles Team
     text-align: center;
   }
 
-  .skittles-table th, .skittles-table td {
-    border: 1px solid #333;
-    padding: 6px 4px;
-    vertical-align: middle;
-  }
-
   .skittles-table th {
     background-color: #e2e8f0;
     font-size: 0.9rem;
     text-transform: uppercase;
-  }
-
-  .skittles-table th.team-header {
-    background-color: #2b3a4a;
-    color: white;
-    font-size: 1.1rem;
+    border: 1px solid #333;
+    padding: 6px 4px;
   }
 
   .player-name-input {
@@ -222,18 +203,6 @@ title: Scoreboard - Semington A Skittles Team
     border: 1px solid #ccc;
     border-radius: 4px;
     font-weight: bold;
-  }
-
-  .score-input {
-    width: 48px !important; /* Optimized width to fit all leg columns neatly */
-    height: 34px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-align: center;
-    padding: 0 2px;
-    border: 1px solid #999;
-    border-radius: 4px;
-    box-sizing: border-box;
   }
 
   .total-cell {
@@ -247,28 +216,15 @@ title: Scoreboard - Semington A Skittles Team
     background-color: #d1ecf1;
     font-size: 1.05rem;
   }
-
-  .score-input.spare-box {
-    width: 48px !important;
-    background-color: #fffde7;
-    border: 2px solid #000 !important;
-    box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px #000;
-    font-weight: bold;
-    box-sizing: border-box;
-  }
   
   .legs-won-row, .match-points-row {
     background-color: #f0f4f8;
     font-weight: bold;
   }
-  
-  .skittles-table th:first-child,
-  .skittles-table td:first-child {
-    min-width: 130px;
-    width: 150px;
-  }
 </style>
+{% endblock %}
 
+{% block content %}
 <!-- Traditional Skittles Scoreboard -->
 <div class="scoreboard-board">
 
@@ -352,17 +308,15 @@ title: Scoreboard - Semington A Skittles Team
           </tr>
         </thead>
         <tbody>
-          <script>
-            for(let i=1; i<=10; i++){
-              document.write(`
-                <tr class="player-row">
-                  <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
-                  ${[1,2,3,4,5].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
-                  <td class="total-cell player-total">0</td>
-                </tr>
-              `);
-            }
-          </script>
+          {% for i in range(1, 11) %}
+            <tr class="player-row">
+              <td><input type="text" class="player-name-input" placeholder="Player {{ i }}"></td>
+              {% for leg in range(1, 6) %}
+                <td><input type="number" class="score-input leg-{{ leg }}" min="0" max="27" oninput="calculateScores()"></td>
+              {% endfor %}
+              <td class="total-cell player-total">0</td>
+            </tr>
+          {% endfor %}
         </tbody>
         <tfoot>
           <tr class="totals-row">
@@ -401,17 +355,15 @@ title: Scoreboard - Semington A Skittles Team
           </tr>
         </thead>
         <tbody>
-          <script>
-            for(let i=1; i<=10; i++){
-              document.write(`
-                <tr class="player-row">
-                  <td><input type="text" class="player-name-input" placeholder="Player ${i}"></td>
-                  ${[1,2,3,4,5].map(leg => `<td><input type="number" class="score-input leg-${leg}" min="0" max="27" oninput="calculateScores()"></td>`).join('')}
-                  <td class="total-cell player-total">0</td>
-                </tr>
-              `);
-            }
-          </script>
+          {% for i in range(1, 11) %}
+            <tr class="player-row">
+              <td><input type="text" class="player-name-input" placeholder="Player {{ i }}"></td>
+              {% for leg in range(1, 6) %}
+                <td><input type="number" class="score-input leg-{{ leg }}" min="0" max="27" oninput="calculateScores()"></td>
+              {% endfor %}
+              <td class="total-cell player-total">0</td>
+            </tr>
+          {% endfor %}
         </tbody>
         <tfoot>
           <tr class="totals-row">
@@ -439,8 +391,9 @@ title: Scoreboard - Semington A Skittles Team
   </div>
 
 </div>
+{% endblock %}
 
-<!-- Auto-calculation & Dropdown Update Logic -->
+{% block extra_js %}
 <script>
   const premierTeams = [
     "Staverton A", "Seend A", "Seend B", "MUDS", "Comrades", 
@@ -645,3 +598,4 @@ title: Scoreboard - Semington A Skittles Team
   updateDivisionTeams();
   calculateScores();
 </script>
+{% endblock %}

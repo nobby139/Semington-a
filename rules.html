@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  /* Login Container positioning */
+  .rules-login-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 40px 15px 40px;
+  }
+
+  .rules-box {
+    width: 100%;
+    max-width: 100%;          
+    margin: 0;
+    padding: 20px 40px;       
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    box-sizing: border-box;   
+
+    text-align: center;       
+    font-size: 16px;          
+    line-height: 1.7;         
+
+    max-height: 75vh;         
+    overflow-y: auto;         
+    white-space: pre-wrap;    
+  }
+
+  @media (max-width: 900px) {
+    .rules-login-bar {
+      padding: 0 20px 10px 20px;
+    }
+    .rules-box {
+      font-size: 14px;
+      padding: 15px 20px;
+      max-height: 80vh;
+    }
+  }
+</style>
+
+<!-- Top Right Login Section directly in Rules -->
+<div class="rules-login-bar">
+  <div id="authContainer">
+    <button id="loginBtn" onclick="promptLogin()" style="padding: 6px 12px; background: #ffffff; color: #2b3a4a; border: 1px solid #2b3a4a; border-radius: 4px; font-weight: bold; cursor: pointer;">Treasurer Login</button>
+    <button id="logoutBtn" onclick="logoutAdmin()" style="display: none; padding: 6px 12px; background: #a94442; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Logout</button>
+  </div>
+</div>
+
+<section class="rules-box">
+<h1 style="font-size: 28px; color: #2b3a4a; margin-bottom: 25px;">🍺 SEMINGTON A – THE RULES (THE PUB VERSION, WITH ALL THE INSIDE JOKES)</h1>
+
+<strong>1. Who’s Running This Operation</strong>
+The League Committee run the league like the landlord runs the pub: loudly, confidently, and occasionally after a pint too many.
+Once they approve a rule at the AGM, it’s locked in for three seasons, even if Semington A immediately start moaning about it at the bar.
+
+<strong>2. The Alley & Gear</strong>
+Matches must be played on alleys that aren’t held together with duct tape and prayer.
+Home teams must provide:
+- Balls between 4¼" and 4¾" — not the cannonball Roy once tried to sneak in.
+- Pins that match — unlike the “lucky pin” someone definitely stole from their shed.
+- White bands painted by someone sober (so not Dave).
+- A 6‑foot‑wide alley, 29 feet long — perfect for the famous Semington Side‑Spin Special™.
+- A base line you can still see after two pints.
+- A diamond layout that doesn’t look like it was drawn during happy hour.
+- Pin spacing of 4ft — unless the pins mysteriously “move” when Semington A are losing.
+
+<strong>3. Promotion & Relegation</strong>
+Top two go up.
+Bottom two go down.
+Unless the Committee reshuffles things like Semington A reshuffle the order after someone says, “I bowl better after another pint.”
+
+<strong>4. Result Sheets</strong>
+Fill it in.
+Sign it.
+Hand it in.
+If you don’t, the fines will hit harder than the time Semington A tried to play sober.
+
+<strong>5. Throwing Rules</strong>
+Feet behind the line.
+Feet inside the alley.
+No Semington Shuffle.
+No blaming the floor, the pins, the lighting, the humidity, the moon, or “the ghost of last week’s pint.”
+Pins outside the diamond don’t count — even if Dave insists it “was definitely coming back in.”
+
+<strong>6. Stickers</strong>
+Home team sticks.
+Away team heckles.
+Semington A drinks.
+That’s the natural order of the universe.
+
+<strong>7. Player Registration</strong>
+Players must be registered.
+No double‑signing.
+No “I’m only here because I was already at the bar” loopholes.
+
+<strong>8. Transfers</strong>
+Thinking of switching teams?
+The Committee must approve it — no dramatic exits like the time someone stormed off because the jukebox skipped their song.
+
+<strong>9. Ineligible Players</strong>
+If you sneak in someone who shouldn’t be playing, expect score deductions and a telling‑off that feels like being barred for ordering a shandy.
+
+<strong>10. Subs</strong>
+No subs once the match starts.
+You start with six, you finish with six — even if one of them is halfway through a pint and a bag of pork scratchings.
+
+<strong>11. Postponements</strong>
+Postponements are allowed… but only for real reasons.
+“Half the team’s already in the pub” is not a real reason, even if it’s true every Thursday.
+
+<strong>12. Late Arrivals</strong>
+Late players can only bowl what’s left.
+No rewinds.
+No “I bowl better after a warm‑up pint.”
+No dramatic entrances like Roy bursting in shouting, “RIGHT, WHO’S UP?”
+
+<strong>13. Ties & Tiebreakers</strong>
+If teams finish level, we settle it like proper Semington A legends:
+- Total pins
+- Head‑to‑head
+- A play‑off — ideally with crisps, heckling, and someone shouting “HIT THE BLOODY THING!”
+
+<strong>14. Monthly Newsletters</strong>
+Every month, teams get a newsletter full of updates, reminders, and rumours that definitely didn’t start with Semington A at the bar.
+
+<strong>🌴 15. Holiday Rule – The Caribbean Clause</strong>
+If you’re off sunning yourself in the Caribbean, Spain, or anywhere warmer than Melksham, you forfeit the next match.
+Unless we’re short…
+…in which case we’ll pretend we didn’t notice your tan and stick you in the team anyway.
+
+<strong>🚽 16. R Webber Toilet‑Door Run‑Up (Home Matches Only)</strong>
+If Roy needs a proper run‑up, the toilet door MUST be opened to give him the full runway he deserves.
+Spectators must stand clear.
+Anyone blocking Roy’s approach buys the next round.
+If Roy still misses, it is officially blamed on:
+- The floor
+- The pins
+- The lighting
+- The wind
+- The gravitational pull of the moon
+- Or the three pints he had beforehand (Never Roy’s fault.)
+
+<strong>🧑‍✈️ 17. The Semington A Leadership Team</strong>
+<strong>C. Wade – Captain</strong>
+If Colin says something, everyone agrees. Even if he’s wrong. Especially if he’s wrong. He’s the captain — that’s how it works.
+
+<strong>S. Otterwell – Vice Captain</strong>
+Should be top of the averages because he’s been playing skittles since before half the team were born. Also plays in two leagues because one wasn’t enough punishment.
+
+<strong>C. Clark – Treasurer</strong>
+The wizard of averages, the master of subs, the human calculator. If he says you owe £2.50, you owe £2.50 — even if you’re sure you paid last week.
+
+<strong>J. Aldred – Meal Organiser</strong>
+Organises the Christmas meal, the end‑of‑season meal, and any excuse‑for‑a‑meal meal. Must be seated as close to the oche AND the bar as possible because he gets out of breath walking too far.
+
+<strong>The Pensioners</strong>
+The backbone of the team. The experience. The wisdom. The ones who drink like they’re sponsored. If they’re still standing at the end of the night, it’s been a quiet one.
+
+<h2 style="color: #2b3a4a; margin-top: 30px;">💷 Skittles Money Rules</h2>
+(Because skittles is serious… but not that serious)
+
+<strong>🎯 League Types</strong>
+We play under two league flavours, and yes — they like to do things slightly differently:
+- Premier League – tough, strict, and unforgiving
+- Division 1 – still tough, just a bit more welcoming
+Cup matches behave much like league matches, but with a few fee tweaks (see below).
+
+<strong>🦆 Ducks (the expensive kind)</strong>
+Nobody likes a duck. Some leagues dislike them more than others.
+- Premier League: £0.50 per duck
+- Division 1: £2.00 per duck (Yes, really. Consider it motivation.)
+
+<strong>📉 Low Score Fines (aka “nearly there” money)</strong>
+If your score is low enough to cause raised eyebrows, it may also cause a fine.
+- Premier League: £0.20 for any score under 5
+- Division 1: £0.20 for any score under 6
+
+<strong>🦵 Legs Won (the good news)</strong>
+This bit everyone likes.
+- £2.00 per leg won
+- Maximum 5 legs per match
+- Maximum leg winnings per match: £10
+
+<strong>🌟 Top Score (bragging rights included)</strong>
+- £3.00 Top Score award
+- Awarded to exactly ONE player per match
+- Automatically determined (no arguing, no “but I was robbed”)
+
+<strong>🎯 Spares (small bonus, shared contribution)</strong>
+Each spare scored earns the player £1.80. That 20p is collected from every team player who played in that match.
+- Applies to League and Cup matches
+- Only players who played contribute (absent players do not)
+
+<strong>💷 Match Fees</strong>
+- League Matches: £4.00 per player. Always. No exceptions.
+- Cup Matches: Can vary slightly between competitions depending on players per team and venue (Home vs Away).
+
+<strong>🧾 Leg Fees</strong>
+- £1.00 per player per match (Applies to both league and cup games).
+
+<strong>🧹 Sticker‑Up Fees</strong>
+- £15.00 per match (Home matches only, applies to league and cup matches).
+</section>
+
+<!-- JavaScript to make the login/logout buttons function correctly -->
+<script>
+async function promptLogin() {
+    const password = prompt("Enter Treasurer Password:");
+    if (!password) return;
+    const res = await fetch('/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: password })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) { 
+        location.reload(); 
+    } else { 
+        alert(data.message || "Incorrect password."); 
+    }
+}
+
+async function logoutAdmin() {
+    await fetch('/admin/logout', { method: 'POST' });
+    location.reload();
+}
+
+async function checkLoginState() {
+    try {
+        const res = await fetch('/api/auth/status');
+        const data = await res.json();
+        if (data.is_admin) {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+        } else {
+            document.getElementById('loginBtn').style.display = 'inline-block';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+    } catch (err) {}
+}
+checkLoginState();
+</script>
+{% endblock %}

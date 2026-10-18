@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 30px auto; padding: 20px; font-family: Arial, sans-serif;">
+    <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 30px;">
+        <h1 style="color: #1e293b; margin-top: 0; border-bottom: 3px solid #1e293b; padding-bottom: 10px;">
+            Semington A – "To Catch" Averages Tracker
+        </h1>
+        
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
+            Keep your eye on the prize! This table tracks each player's current average and calculates exactly how many pins you need to overhaul the player sitting right above you in the team standings.
+        </p>
+
+        <div style="margin-top: 25px; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px; text-align: left;">
+                <thead>
+                    <tr style="background-color: #1e293b; color: #ffffff;">
+                        <th style="padding: 12px; border: 1px solid #cbd5e1;">Position</th>
+                        <th style="padding: 12px; border: 1px solid #cbd5e1;">Player</th>
+                        <th style="padding: 12px; border: 1px solid #cbd5e1;">Games Played</th>
+                        <th style="padding: 12px; border: 1px solid #cbd5e1;">Total Pins</th>
+                        <th style="padding: 12px; border: 1px solid #cbd5e1;">Average</th>
+                        <th style="padding: 12px; border: 1px solid #cbd5e1;">Pins Needed To Catch Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example Row 1 -->
+                    <tr style="background-color: #f8fafc;">
+                        <td style="padding: 12px; border: 1px solid #cbd5e1;">1</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">Player Name</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1;">10</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1;">350</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #2563eb;">35.00</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1; color: #64748b;">Leader</td>
+                    </tr>
+                    <!-- Example Row 2 -->
+                    <tr style="background-color: #ffffff;">
+                        <td style="padding: 12px; border: 1px solid #cbd5e1;">2</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">Your Name Here</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1;">10</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1;">340</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #2563eb;">34.00</td>
+                        <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold; color: #d97706;">11 pins (next game)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 30px; background-color: #f1f5f9; border-left: 4px solid #1e293b; padding: 15px; border-radius: 4px;">
+            <p style="margin: 0; color: #334155; font-size: 0.95rem;">
+                <strong>Target Rule:</strong> The "Pins Needed" column calculates the exact differential required on your next outing to surpass the average of the player immediately above you. Time to start practicing those spares!
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
