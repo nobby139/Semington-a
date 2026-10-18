@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+---
+layout: base
+title: Home - Semington A Skittles Team
+---
 
-{% block title %}Scoreboard - Semington A Skittles Team{% endblock %}
-
-{% block extra_css %}
 <style>
   /* 1. Force the parent main container to expand past 1500px so it has room */
   main {
@@ -598,4 +598,3 @@
   updateDivisionTeams();
   calculateScores();
 </script>
-{% endblock %}
