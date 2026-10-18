@@ -1,6 +1,8 @@
-{% extends "base.html" %}
+---
+layout: base
+title: Match Results - Semington A Skittles Team
+---
 
-{% block content %}
 <div style="max-width: 1400px; margin: 20px auto; padding: 20px; font-family: Arial, sans-serif;">
     <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 25px;">
         
@@ -9,12 +11,12 @@
             <div>
                 <h1 style="color: #1e293b; margin: 0; font-size: 1.6rem;">Semington A Skittles Team - Match Results</h1>
                 <p style="color: #64748b; margin: 5px 0 0 0; font-size: 0.9rem;">
-                    Loaded {{ rows_count if rows_count else '248' }} rows. Matches: {{ matches_count if matches_count else '25' }}
+                    Loaded 248 rows. Matches: 25
                 </p>
             </div>
             <div style="text-align: right;">
                 <span style="color: #64748b; font-size: 0.85rem;">
-                    Last updated: {{ last_updated if last_updated else 'Sunday, 26 April 2026 at 09:21' }}
+                    Last updated: Sunday, 26 April 2026 at 09:21
                 </span>
             </div>
         </div>
@@ -24,11 +26,7 @@
             <label for="match_filter" style="font-weight: bold; color: #334155; margin-right: 10px; font-size: 0.9rem;">Filter by Match ID:</label>
             <select id="match_filter" name="match_filter" style="padding: 6px 12px; border-radius: 4px; border: 1px solid #cbd5e1; font-size: 0.9rem;">
                 <option value="all">All Matches</option>
-                {% if matches %}
-                    {% for match in matches %}
-                    <option value="{{ match.id }}">{{ match.name }}</option>
-                    {% endfor %}
-                {% endif %}
+                <!-- Populated via data/JS if dynamic -->
             </select>
         </div>
 
@@ -51,72 +49,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if results %}
-                        {% for row in results %}
-                        <tr style="background-color: {{ loop.cycle('#ffffff', '#f8fafc') }};">
-                            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left;">{{ row.match_id }}</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">{{ row.details }}</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">{{ row.home_away }}</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-weight: 500;">{{ row.player_name }}</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">{{ row.total_score }}</span>
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">{{ row.position }}</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                {% if row.ducks %}
-                                <span style="background-color: #dc2626; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">{{ row.ducks }}</span>
-                                {% endif %}
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                {% if row.spares %}
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">{{ row.spares }}</span>
-                                {% endif %}
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                {% if row.legs_won %}
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px;">{{ row.legs_won }}</span>
-                                {% endif %}
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                {% if row.top_score %}
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px;">{{ row.top_score }}</span>
-                                {% endif %}
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0; background-color: #fef08a; font-weight: bold; color: #854d0e;">
-                                {{ row.league_avg }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    {% else %}
-                        <!-- Placeholder Example Row -->
-                        <tr>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left;">24/04/2026 Comrades vs Semington A</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">League</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">Away</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-weight: 500;">B Lockyear</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">34</span>
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">21</td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;"></td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">1</span>
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px;">£4</span>
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0;">
-                                <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px;">£3</span>
-                            </td>
-                            <td style="padding: 8px; border: 1px solid #e2e8f0; background-color: #fef08a; font-weight: bold; color: #854d0e;">
-                                24.429
-                            </td>
-                        </tr>
-                    {% endif %}
+                    <!-- Placeholder Example Row -->
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left;">24/04/2026 Comrades vs Semington A</td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">League</td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">Away</td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-weight: 500;">B Lockyear</td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">
+                            <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">34</span>
+                        </td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">21</td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;"></td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">
+                            <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;">1</span>
+                        </td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">
+                            <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px;">£4</span>
+                        </td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0;">
+                            <span style="background-color: #16a34a; color: white; padding: 3px 8px; border-radius: 4px;">£3</span>
+                        </td>
+                        <td style="padding: 8px; border: 1px solid #e2e8f0; background-color: #fef08a; font-weight: bold; color: #854d0e;">
+                            24.429
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
 </div>
-{% endblock %}
