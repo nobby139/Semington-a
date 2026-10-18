@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+---
+layout: base
+title: Home - Semington A Skittles Team
+---
 
-{% block title %}Home - Semington A Skittles Team{% endblock %}
-
-{% block extra_css %}
 <style>
   /* Ensure the main element spans the layout width */
   main {
@@ -54,14 +54,11 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="centered-home-container">
   <h2>Welcome to Semington A Skittles Team</h2>
   <p>Use the navigation menu above to access scoreboards, fixtures, and league rules.</p>
   
   <!-- Centered Clipart Image -->
-  <img src="{{ url_for('static', filename='assets/Skittles Clipart 2.jpg') }}" alt="Skittles Clipart" class="home-clipart">
+  <img src="{{ 'assets/Skittles Clipart 2.jpg' | relative_url }}" alt="Skittles Clipart" class="home-clipart">
 </div>
-{% endblock %}
